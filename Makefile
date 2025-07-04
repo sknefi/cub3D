@@ -1,9 +1,9 @@
-CC = clang
-FLAGS = -Wall -Wextra -Werror \
-		-pedantic \
-		-g
 NAME = cub3d
-SRC = main.c
+CC = cc 
+FLAGS = -Wall -Wextra -Werror -pedantic -g
+
+SRC = ./src/main.c \
+
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
