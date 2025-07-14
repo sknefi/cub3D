@@ -1,8 +1,13 @@
 #include "../include/cub3d.h"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
+	//t_engine	*engine;
+
+	(void)argv;
+	if (argc != 2)
+		return (printf("Usage: ./cub3d <path_to_map>\n"), 1);
 	// cub3d baby!!!
 	ft_printf("cubenzi 3denzi\n");
-	return (EXIT_SUCCESS);
+	return (0);
 }
