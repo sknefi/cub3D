@@ -10,7 +10,7 @@ int	main(int argc, char **argv)
 	if (!engine)
 		return (printf("Error\nCalloc error\n"), 1);
 	if (parser(engine, argv[1]))
-		return (1);
+		return (free(engine), 1);
 	// cub3d baby!!!
 	ft_printf("cubenzi 3denzi\n");
 	free(engine);
