@@ -13,6 +13,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 # Source files
 SRC = ./src/main.c \
+	  ./src/parser/parser.c
 
 OBJ = $(SRC:.c=.o)
 
