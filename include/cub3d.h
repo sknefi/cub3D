@@ -9,9 +9,16 @@
 # include <string.h>
 # include <math.h>
 
-# include "MLX42/MLX42.h"
-# include "libft.h"
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../libft_divinus/libft.h"
 
+# include "structs.h"
 # include "parser.h"
+
+# define WIN_H 800
+# define WIN_W 600
+
+void	game_init(t_engine *engine);
+
 
 #endif
