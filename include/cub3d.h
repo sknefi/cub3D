@@ -3,10 +3,12 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdint.h>
 # include <string.h>
+# include <fcntl.h>
 # include <math.h>
 
 # include "../MLX42/include/MLX42/MLX42.h"

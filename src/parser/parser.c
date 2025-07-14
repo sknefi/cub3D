@@ -4,9 +4,13 @@ static int	check_extension(char *filename);
 
 int	parser(t_engine *engine, char *filename)
 {
+	int	fd;
 	(void)engine;
 	if (check_extension(filename))
 		return (printf("Error\nWrong extension\n"), 1);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (perror("Error\n"), 1);
 	// check characters used in filename
 	// check map
 	// flood fill
