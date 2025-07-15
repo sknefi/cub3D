@@ -15,6 +15,7 @@
 # include "../libft_divinus/libft.h"
 
 # include "structs.h"
+# include "enums.h"
 # include "parser.h"
 
 # define WIN_H 800
