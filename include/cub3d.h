@@ -22,6 +22,6 @@
 # define WIN_W 600
 
 void	game_init(t_engine *engine);
-
+int		ft_isspace(char c);
 
 #endif

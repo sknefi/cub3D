@@ -1,4 +1,6 @@
 #include "../../include/cub3d.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 static int	check_extension(char *filename);
 static int	check_textures(t_engine *engine, int fd);
@@ -37,20 +39,70 @@ static int	check_extension(char *filename)
 	return (1);
 }
 
-static int	process_line(t_engine *engine, char *line)
+static int	determine_cardinal_point(t_engine *engine, char *line, size_t *j)
 {
-	
+	(void)engine;
+	(void)j;
+	if (ft_strcmp(line, "NO") == 0)
+		return (printf("yes, yes!\n"), 0);
+	else if (ft_strcmp(line, "EA") == 0)
+		printf("b\n");
+	else if (ft_strcmp(line, "SO") == 0)
+		printf("c\n");
+	else if (ft_strcmp(line, "WE") == 0)
+		printf("d\n");
+	return (1);
+}
+
+static int	process_line(t_engine *engine, char *line, size_t length)
+{
+	char	*tmp;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	tmp = malloc(length);
+	if (!tmp)
+		return (1);
+	while(line[i])
+	{
+		if (!ft_isspace(line[i]))
+			tmp[j++] = line[i];
+		if (j == 2)
+		{
+			tmp[j] = '\0';
+			if (determine_cardinal_point(engine, tmp, &j))
+				return (free(tmp), 1);
+			break ;
+		}
+		i++;
+	}
+	free(tmp);
+	return (0);
+}
+
+static void	trim_new_line(char **line, size_t length)
+{
+	if ((*line)[length - 1] == '\n')
+		(*line)[length - 1] = '\0';
 }
 
 static int	check_textures(t_engine *engine, int fd)
 {
 	char	*line;
+	size_t	length;
 
 	line = get_next_line(fd);
+	length = 0;
 	while(line)
 	{
-		if (process_line(engine, line))
+		length = ft_strlen(line);
+		trim_new_line(&line, length);
+		if (process_line(engine, line, length))
 			return (1);
+		free(line);
+		line = get_next_line(fd);
 	}
 	return (0);
 }
