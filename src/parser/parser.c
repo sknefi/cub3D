@@ -48,11 +48,11 @@ static int	determine_cardinal_point(t_engine *engine, char *line, char *dir)
 	if (ft_strcmp(dir, "NO") == 0)
 		exit_status = extract_texture(engine, line, "NO");
 	else if (ft_strcmp(dir, "EA") == 0)
-		printf("b\n");
+		exit_status = extract_texture(engine, line, "EA");
 	else if (ft_strcmp(dir, "SO") == 0)
-		printf("c\n");
+		exit_status = extract_texture(engine, line, "SO");
 	else if (ft_strcmp(dir, "WE") == 0)
-		printf("d\n");
+		exit_status = extract_texture(engine, line, "WE");
 	return (1);
 }
 
