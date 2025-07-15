@@ -39,46 +39,48 @@ static int	check_extension(char *filename)
 	return (1);
 }
 
-static int	determine_cardinal_point(t_engine *engine, char *line, size_t *j)
+static int	determine_cardinal_point(t_engine *engine, char *line, char *dir)
 {
+	int	exit_status;
+	
+	exit_status = 1;
 	(void)engine;
-	(void)j;
-	if (ft_strcmp(line, "NO") == 0)
-		return (printf("yes, yes!\n"), 0);
-	else if (ft_strcmp(line, "EA") == 0)
+	if (ft_strcmp(dir, "NO") == 0)
+		exit_status = extract_texture(engine, line, "NO");
+	else if (ft_strcmp(dir, "EA") == 0)
 		printf("b\n");
-	else if (ft_strcmp(line, "SO") == 0)
+	else if (ft_strcmp(dir, "SO") == 0)
 		printf("c\n");
-	else if (ft_strcmp(line, "WE") == 0)
+	else if (ft_strcmp(dir, "WE") == 0)
 		printf("d\n");
 	return (1);
 }
 
 static int	process_line(t_engine *engine, char *line, size_t length)
 {
-	char	*tmp;
+	char	*direction;
 	size_t	i;
 	size_t	j;
 
 	i = 0;
 	j = 0;
-	tmp = malloc(length);
-	if (!tmp)
+	direction = malloc(3);
+	if (!direction)
 		return (1);
 	while(line[i])
 	{
 		if (!ft_isspace(line[i]))
-			tmp[j++] = line[i];
+			direction[j++] = line[i];
 		if (j == 2)
 		{
-			tmp[j] = '\0';
-			if (determine_cardinal_point(engine, tmp, &j))
-				return (free(tmp), 1);
+			direction[j] = '\0';
+			if (determine_cardinal_point(engine, line, direction))
+				return (free(direction), 1);
 			break ;
 		}
 		i++;
 	}
-	free(tmp);
+	free(direction);
 	return (0);
 }
 
