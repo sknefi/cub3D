@@ -44,16 +44,31 @@ static int	determine_cardinal_point(t_engine *engine, char *line, char *dir)
 	int	exit_status;
 	
 	exit_status = 1;
-	(void)engine;
 	if (ft_strcmp(dir, "NO") == 0)
+	{
+		if (engine->flags & TEXTURE_NO)
+			return (1);
 		exit_status = extract_texture(engine, line, "NO");
+	}
 	else if (ft_strcmp(dir, "EA") == 0)
+	{
+		if (engine->flags & TEXTURE_EA)
+			return (1);
 		exit_status = extract_texture(engine, line, "EA");
+	}
 	else if (ft_strcmp(dir, "SO") == 0)
+	{
+		if (engine->flags & TEXTURE_SO)
+			return (1);
 		exit_status = extract_texture(engine, line, "SO");
+	}
 	else if (ft_strcmp(dir, "WE") == 0)
+	{
+		if (engine->flags & TEXTURE_WE)
+			return (1);
 		exit_status = extract_texture(engine, line, "WE");
-	return (1);
+	}
+	return (exit_status);
 }
 
 static int	process_line(t_engine *engine, char *line, size_t length)
