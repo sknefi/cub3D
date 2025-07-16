@@ -3,7 +3,7 @@
 static int	process_line(t_engine *engine, char *line, size_t length);
 static int	determine_cardinal_point(t_engine *engine, char *line, char *dir);
 
-int	check_line(t_engine *engine, int fd)
+int	check_lines(t_engine *engine, int fd)
 {
 	char	*line;
 	size_t	length;
