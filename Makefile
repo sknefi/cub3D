@@ -13,7 +13,8 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 # Source files
 SRC = ./src/main.c \
-	  ./src/parser/parser.c ./src/parser/ft_isspace.c
+	  ./src/parser/parser.c ./src/parser/extract_texture.c ./src/parser/extract_colors.c \
+	  ./src/parser/ft_isspace.c
 
 OBJ = $(SRC:.c=.o)
 
