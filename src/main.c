@@ -11,6 +11,7 @@ int	main(int argc, char **argv)
 		return (printf("Error\nCalloc error\n"), 1);
 	if (parser(engine, argv[1]))
 		return (free(engine), 1);
+	printf("%s\n", engine->textures[0]);
 	// cub3d baby!!!
 	ft_printf("cubenzi 3denzi\n");
 	free(engine);
