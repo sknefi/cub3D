@@ -40,6 +40,7 @@ static int	process_line(t_engine *engine, char *line, size_t length)
 			tmp[i++] = *line;
 		//if (tmp == 'F' || *tmp == 'C')
 		//	extract_colors(engine, line, tmp, length);
+		line++;
 		if (i == 2)
 		{
 			tmp[i] = '\0';
@@ -47,7 +48,6 @@ static int	process_line(t_engine *engine, char *line, size_t length)
 				return (free(tmp), 1);
 			break ;
 		}
-		line++;
 	}
 	free(tmp);
 	return (0);
