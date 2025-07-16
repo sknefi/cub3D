@@ -15,40 +15,41 @@ int	check_lines(t_engine *engine, int fd)
 		length = ft_strlen(line);
 		trim_new_line(&line, length);
 		if (process_line(engine, line, length))
-			return (1);
+			return (free(line), 1);
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (line)
+		free(line);
 	return (0);
 }
 
 static int	process_line(t_engine *engine, char *line, size_t length)
 {
-	char	*direction;
+	char	*tmp;
 	size_t	i;
-	size_t	j;
 
+	(void)length;
 	i = 0;
-	j = 0;
-	direction = malloc(3);
-	if (!direction)
+	tmp = malloc(3);
+	if (!tmp)
 		return (1);
-	while(line[i])
+	while(*line)
 	{
-		if (!ft_isspace(line[i]))
-			direction[j++] = line[i];
-		if (direction[j] == 'F' || direction[j] == 'C')
-			extract_colors(engine, line, tmp, length);
-		if (j == 2)
+		if (!ft_isspace(*line))
+			tmp[i++] = *line;
+		//if (tmp == 'F' || *tmp == 'C')
+		//	extract_colors(engine, line, tmp, length);
+		if (i == 2)
 		{
-			direction[j] = '\0';
-			if (determine_cardinal_point(engine, line, direction))
-				return (free(direction), 1);
+			tmp[i] = '\0';
+			if (determine_cardinal_point(engine, line, tmp))
+				return (free(tmp), 1);
 			break ;
 		}
-		i++;
+		line++;
 	}
-	free(direction);
+	free(tmp);
 	return (0);
 }
 

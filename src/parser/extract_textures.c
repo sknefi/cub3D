@@ -2,9 +2,11 @@
 
 int	extract_texture(t_engine *engine, char *line, char *dir)
 {
-	char	*extracted;
+	//char	*extracted;
 
-	if (line[3])
-
+	(void)engine;
+	(void)dir;
+	printf("I'm here!!!\n");
+	printf("%s", line);
 	return (0);
 }

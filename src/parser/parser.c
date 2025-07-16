@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 static int	check_extension(char *filename);
-static int	check_line(t_engine *engine, int fd);
 
 int	parser(t_engine *engine, char *filename)
 {
