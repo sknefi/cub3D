@@ -13,8 +13,6 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	direction = get_direction(dir);
 	(void)engine;
 	(void)dir;
-	printf("I'm here!!!\n");
-	printf("%s\n", line);
 	while (line[i])
 	{
 		if(!ft_isspace(line[i]))
@@ -22,7 +20,6 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 		i++;
 	}
 	line[j] = '\0';
-	printf("%s\n", line);
 	engine->textures[direction] = ft_strdup(line);
 	return (0);
 }

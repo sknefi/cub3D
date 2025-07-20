@@ -12,7 +12,7 @@
 # include <math.h>
 
 # include "../MLX42/include/MLX42/MLX42.h"
-# include "../libft_divinus/libft.h"
+# include "../libft/libft.h"
 
 # include "structs.h"
 # include "enums.h"
@@ -23,5 +23,8 @@
 
 void	game_init(t_engine *engine);
 int		ft_isspace(char c);
+
+// Cleaner
+void	free_struct(t_engine *engine);
 
 #endif
