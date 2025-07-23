@@ -36,7 +36,8 @@ static int	check_set(t_engine *engine, char *line, size_t length)
 	exit_status = 1;
 	if ((engine->flags & ALL_SET) != ALL_SET)
 		exit_status = process_line(engine, line, length);
-	//else
+	else
+		printf("It is here!!!\n");
 	//	exit_status = process_map(engine, line);
 	return (exit_status);
 }

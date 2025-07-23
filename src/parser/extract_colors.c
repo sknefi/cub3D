@@ -95,15 +95,15 @@ static bool	save_rgb(t_engine *engine, char **rgb, t_color_types type)
 	i = 0;
 	if (type == CEILING)
 	{
-		engine->ceiling.r = (uint8_t)ft_atoi(rgb[i++]);
-		engine->ceiling.g = (uint8_t)ft_atoi(rgb[i++]);
-		engine->ceiling.b = (uint8_t)ft_atoi(rgb[i++]);
+		engine->ceiling->r = (uint8_t)ft_atoi(rgb[i++]);
+		engine->ceiling->g = (uint8_t)ft_atoi(rgb[i++]);
+		engine->ceiling->b = (uint8_t)ft_atoi(rgb[i++]);
 	}
 	else if (type == FLOOR)
 	{
-		engine->floor.r = (uint8_t)ft_atoi(rgb[i++]);
-		engine->floor.g = (uint8_t)ft_atoi(rgb[i++]);
-		engine->floor.b = (uint8_t)ft_atoi(rgb[i++]);
+		engine->floor->r = (uint8_t)ft_atoi(rgb[i++]);
+		engine->floor->g = (uint8_t)ft_atoi(rgb[i++]);
+		engine->floor->b = (uint8_t)ft_atoi(rgb[i++]);
 	}
 	return (true);
 }

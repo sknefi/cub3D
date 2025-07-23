@@ -7,7 +7,11 @@ static int	check_extension(char *filename);
 int	parser(t_engine *engine, char *filename)
 {
 	int	fd;
-	(void)engine;
+
+	/* TODO
+	engine->ceiling = ft_calloc(1, sizeof(t_rgb));
+	engine->floor = ft_calloc(1, sizeof(t_rgb));
+	*/
 	if (check_extension(filename))
 		return (printf("Error\nWrong extension\n"), 1);
 	fd = open(filename, O_RDONLY);
