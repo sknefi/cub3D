@@ -1,6 +1,8 @@
 #include "../../include/cub3d.h"
 
 static int	extract_color(t_engine *engine, char *line);
+static bool	check_rgb(char **rgb);
+static bool	check_overflow(char *color);
 
 int	extract_colors(t_engine *engine, char *line, char **id, size_t i)
 {
@@ -18,31 +20,6 @@ int	extract_colors(t_engine *engine, char *line, char **id, size_t i)
 		exit_status = extract_color(engine, line);
 	}
 	return (exit_status);
-}
-
-//TODO
-static bool	check_overflow(char *color)
-{
-	(void)color;
-	return (true);
-}
-
-static bool	check_rgb(char **rgb)
-{
-	size_t	i;
-	int		value;
-
-	i = 0;
-	while (rgb[i])
-	{
-		if (!check_overflow(rgb[i]))
-			return (false);
-		value = ft_atoi(rgb[i]);
-		if (value < 0 || value > 255)
-			return (false);
-		i++;
-	}
-	return (true);
 }
 
 static int	extract_color(t_engine *engine, char *line)
@@ -75,4 +52,38 @@ static int	extract_color(t_engine *engine, char *line)
 	printf("%s\n", line);
 	free_split(rgb);
 	return (0);
+}
+
+static bool	check_rgb(char **rgb)
+{
+	size_t	i;
+	int		value;
+
+	i = 0;
+	while (rgb[i])
+	{
+		if (!check_overflow(rgb[i]))
+			return (false);
+		value = ft_atoi(rgb[i]);
+		if (value < 0 || value > 255)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+static bool	check_overflow(char *color)
+{
+	size_t	i;
+
+	i = 0;
+	while (color[i])
+	{
+		if (!ft_isdigit(color[i]))
+			return (false);
+		i++;
+	}
+	if (i != 3)
+		return (false);
+	return (true);
 }
