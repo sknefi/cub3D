@@ -2,15 +2,20 @@
 
 typedef struct	s_map	t_map;
 typedef struct s_player	t_player;
-typedef struct s_rgb	t_rgb;
+typedef struct	s_rgb
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+}	t_rgb;
 
 typedef struct	s_engine
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img[4];
 	char			*textures[4];
-	t_rgb			*floor;
-	t_rgb			*ceiling;
+	t_rgb			floor;
+	t_rgb			ceiling;
 	uint8_t			flags;
 	t_map			*map;
 	t_player		*player;
@@ -31,10 +36,3 @@ typedef struct	s_player
 	float	dy;
 	float	angle;
 }	t_player;
-
-typedef struct	s_rgb
-{
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
-}	t_rgb;

@@ -9,3 +9,9 @@ typedef enum	s_textures_dir
 	WE,
 	ERROR = -1,
 }	t_textures_dir;
+
+typedef enum	s_color_types
+{
+	CEILING = 0,
+	FLOOR
+}	t_color_types;

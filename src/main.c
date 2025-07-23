@@ -11,8 +11,10 @@ int	main(int argc, char **argv)
 		return (printf("Error\nCalloc error\n"), 1);
 	if (parser(engine, argv[1]))
 		return (free_struct(engine), 1);
-	//for (int i = 0; i < 4; i++)
-	//	printf("%s\n", engine->textures[i]);
+	for (int i = 0; i < 4; i++)
+		printf("%s\n", engine->textures[i]);
+	printf("%d\n", engine->floor.b);
+
 	// cub3d baby!!!
 	ft_printf("cubenzi 3denzi\n");
 	free_struct(engine);	
