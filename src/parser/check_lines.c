@@ -11,7 +11,7 @@ int	check_lines(t_engine *engine, int fd)
 	int		exit_status;
 
 	exit_status = 0;
-	line = get_next_line(fd, 0);
+	line = get_next_line(fd);
 	length = 0;
 	while(line)
 	{
@@ -22,9 +22,8 @@ int	check_lines(t_engine *engine, int fd)
 			exit_status = check_set(engine, line, length);
 		}
 		free(line);
-		line = get_next_line(fd, 0);
+		line = get_next_line(fd);
 	}
-	get_next_line(0, 1);
 	if (line)
 		free(line);
 	return (exit_status);

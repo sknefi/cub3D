@@ -6,7 +6,7 @@
 /*   By: tmateja <tmateja@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:11:00 by tmateja           #+#    #+#             */
-/*   Updated: 2024/10/13 14:04:30 by tmateja          ###   ########.fr       */
+/*   Updated: 2025/07/23 17:51:12 by tmateja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-char	*get_next_line(int fd, int cleanup);
+char	*get_next_line(int fd);
 void	*ft_calloc_gnl(size_t count, size_t size);
 char	*ft_strchr_gnl(const char *s, int c);
 size_t	ft_strlen_gnl(const char *str);

@@ -6,7 +6,7 @@
 /*   By: tmateja <tmateja@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 15:09:33 by tmateja           #+#    #+#             */
-/*   Updated: 2024/10/13 16:32:00 by tmateja          ###   ########.fr       */
+/*   Updated: 2025/07/23 17:51:20 by tmateja          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,11 @@ static char	*ft_line(char *buffer);
 static char	*ft_rm_read(char *buffer);
 static char	*ft_append(char *buffer, char *buf);
 
-char	*get_next_line(int fd, int cleanup)
+char	*get_next_line(int fd)
 {
 	static char	*buffer;
 	char		*line;
 
-	if (cleanup)
-	{
-		free(buffer);
-		buffer = NULL;
-		return (NULL);
-	}
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1024)
 		return (NULL);
 	buffer = read_file(fd, buffer);
