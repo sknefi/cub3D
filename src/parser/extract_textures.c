@@ -11,8 +11,8 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	i = 0;
 	j = 0;
 	direction = get_direction(dir);
-	(void)engine;
-	(void)dir;
+	if (ERROR == direction)
+		return (1);
 	while (line[i])
 	{
 		if(!ft_isspace(line[i]))
@@ -21,19 +21,21 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	}
 	line[j] = '\0';
 	engine->textures[direction] = ft_strdup(line);
+	if (!engine->textures[direction])
+		return (1);
 	return (0);
 }
 
 static t_textures_dir	get_direction(char *dir)
 {
 	if (ft_strcmp(dir, "NO") == 0)
-		return NO;
+		return (NO);
 	else if (ft_strcmp(dir, "EA") == 0)
-		return EA;
+		return (EA);
 	else if (ft_strcmp(dir, "SO") == 0)
-		return SO;
+		return (SO);
 	else if (ft_strcmp(dir, "WE") == 0)
-		return WE;
+		return (WE);
 	else
-		return ERROR;
+		return (ERROR);
 }

@@ -15,7 +15,6 @@ int	parser(t_engine *engine, char *filename)
 		return (perror("Error\n"), 1);
 	if (check_lines(engine, fd))
 		return (printf("Error\nIssue with textures\n"), 1);
-	// check characters used in filename
 	// check map
 	// flood fill
 	// check and fill textures and colors

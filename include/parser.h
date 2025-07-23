@@ -18,7 +18,9 @@ int	check_lines(t_engine *engine, int fd);
 
 // Extract functions
 int	extract_texture(t_engine *engine, char *line, char *dir);
+int	extract_colors(t_engine *engine, char *line, char **id, size_t i);
 
 // Utils
 void	trim_new_line(char **line, size_t length);
+void	free_split(char **rgb);
 #endif

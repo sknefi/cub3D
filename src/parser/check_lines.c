@@ -2,27 +2,44 @@
 
 static int	process_line(t_engine *engine, char *line, size_t length);
 static int	determine_cardinal_point(t_engine *engine, char *line, char **dir);
+static int	check_set(t_engine *engine, char *line, size_t length);
 
 int	check_lines(t_engine *engine, int fd)
 {
 	char	*line;
 	size_t	length;
+	int		exit_status;
 
+	exit_status = 0;
 	line = get_next_line(fd, 0);
 	length = 0;
 	while(line)
 	{
-		length = ft_strlen(line);
-		trim_new_line(&line, length);
-		if (process_line(engine, line, length))
-			return (free(line), 1);
+		if (!exit_status)
+		{
+			length = ft_strlen(line);
+			trim_new_line(&line, length);
+			exit_status = check_set(engine, line, length);
+		}
 		free(line);
 		line = get_next_line(fd, 0);
 	}
 	get_next_line(0, 1);
 	if (line)
 		free(line);
-	return (0);
+	return (exit_status);
+}
+
+static int	check_set(t_engine *engine, char *line, size_t length)
+{
+	int	exit_status;
+
+	exit_status = 1;
+	if ((engine->flags & ALL_SET) != ALL_SET)
+		exit_status = process_line(engine, line, length);
+	//else
+	//	exit_status = process_map(engine, line);
+	return (exit_status);
 }
 
 static int	process_line(t_engine *engine, char *line, size_t length)
@@ -41,18 +58,20 @@ static int	process_line(t_engine *engine, char *line, size_t length)
 	{
 		if (!ft_isspace(*ptr))
 			tmp[i++] = *ptr;
-		//if (tmp == 'F' || *tmp == 'C')
-		//	extract_colors(engine, line, tmp, length);
 		ptr++;
+		if (i == 1 && (tmp[0] == 'F' || tmp[0] == 'C'))
+		{
+			if (extract_colors(engine, ptr, &tmp, i))
+				return (free(tmp), 1);
+			break ;
+		}
 		if (i == 2)
 		{
 			tmp[i] = '\0';
 			if (determine_cardinal_point(engine, ptr, &tmp))
 				return (free(tmp), 1);
-			i = 0;
+			break ;
 		}
-		//if ((engine->flags & ALL_SET) == ALL_SET)
-		//	break ;
 	}
 	free(tmp);
 	return (0);
@@ -68,24 +87,28 @@ static int	determine_cardinal_point(t_engine *engine, char *line, char **dir)
 		if (engine->flags & TEXTURE_NO)
 			return (1);
 		exit_status = extract_texture(engine, line, "NO");
+		engine->flags |= TEXTURE_NO;
 	}
 	else if (ft_strcmp(*dir, "EA") == 0)
 	{
 		if (engine->flags & TEXTURE_EA)
 			return (1);
 		exit_status = extract_texture(engine, line, "EA");
+		engine->flags |= TEXTURE_EA;
 	}
 	else if (ft_strcmp(*dir, "SO") == 0)
 	{
 		if (engine->flags & TEXTURE_SO)
 			return (1);
 		exit_status = extract_texture(engine, line, "SO");
+		engine->flags |= TEXTURE_SO;
 	}
 	else if (ft_strcmp(*dir, "WE") == 0)
 	{
 		if (engine->flags & TEXTURE_WE)
 			return (1);
 		exit_status = extract_texture(engine, line, "WE");
+		engine->flags |= TEXTURE_WE;
 	}
 	dir = NULL;
 	return (exit_status);
