@@ -8,6 +8,8 @@ void	free_struct(t_engine *engine)
 		free(engine->ceiling);
 	if (engine->floor)
 		free(engine->floor);
+	if (engine->map)
+		free(engine->map);
 	for (int i = 0; i < 4; i++)
 	{
 		if (engine->textures[i])

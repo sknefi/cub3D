@@ -11,6 +11,7 @@ int	parser(t_engine *engine, char *filename)
 	// TODO check if fail
 	engine->ceiling = ft_calloc(1, sizeof(t_rgb));
 	engine->floor = ft_calloc(1, sizeof(t_rgb));
+	engine->map = ft_calloc(1, sizeof(t_map));
 	if (check_extension(filename))
 		return (printf("Error\nWrong extension\n"), 1);
 	fd = open(filename, O_RDONLY);
