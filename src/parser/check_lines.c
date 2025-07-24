@@ -22,13 +22,13 @@ int	check_lines(t_engine *engine, int fd)
 			exit_status = check_set(engine, line, length);
 		}
 		free(line);
+		if ((engine->flags & ALL_SET) == ALL_SET)
+			break ;
 		line = get_next_line(fd);
 	}
-	if (line)
-		free(line);
 	return (exit_status);
 }
-
+ // TODO erase it
 static int	check_set(t_engine *engine, char *line, size_t length)
 {
 	int	exit_status;
@@ -36,9 +36,6 @@ static int	check_set(t_engine *engine, char *line, size_t length)
 	exit_status = 1;
 	if ((engine->flags & ALL_SET) != ALL_SET)
 		exit_status = process_line(engine, line, length);
-	else
-		printf("It is here!!!\n");
-	//	exit_status = process_map(engine, line);
 	return (exit_status);
 }
 
