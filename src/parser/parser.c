@@ -18,12 +18,12 @@ int	parser(t_engine *engine, char *filename)
 	if (fd < 0)
 		return (perror("Error\n"), 1);
 	if (check_lines(engine, fd))
-		return (printf("Error\nIssue with textures\n"), 1);
+		return (printf("Error\nIssue with textures\n"), close(fd), 1);
 	if (process_map(engine, fd))
-		return (printf("Error with parsing map\n"), 1);
-	// flood fill
-	// check and fill textures and colors
-	// create char	**map
+		return (printf("Error with parsing map\n"), close(fd), 1);
+	close(fd);
+	//if (check_map(engine))
+	//	return (1);
 	ft_printf("one day it will parse something\n");
 	return (0);
 }
