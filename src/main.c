@@ -33,6 +33,9 @@ static void	tester(t_engine *engine)
 	if ((engine->flags & ALL_SET) == ALL_SET)
 		printf("HI!\n");
 	printf("Map height: %d\n", engine->map->height);
+	printf("Map:\n");
+	for (uint32_t i = 0; i < engine->map->height; i++)
+		printf("%s\n", engine->map->map[i]);
 	printf("---------- End of tester ----------\n");
 	// END OF TESTER
 }

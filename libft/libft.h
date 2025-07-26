@@ -70,5 +70,6 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_strcmp(const char *s1, const char *s2);
 
 void	ft_realloc(volatile char **str, int new_len, int old_len);
+char	*ft_strjoin_free(char *s1, char *s2);
 
 #endif

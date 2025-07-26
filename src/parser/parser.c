@@ -20,7 +20,7 @@ int	parser(t_engine *engine, char *filename)
 	if (check_lines(engine, fd))
 		return (printf("Error\nIssue with textures\n"), 1);
 	if (process_map(engine, fd))
-		return (printf("Error TODO\n"), 1);
+		return (printf("Error with parsing map\n"), 1);
 	// flood fill
 	// check and fill textures and colors
 	// create char	**map
