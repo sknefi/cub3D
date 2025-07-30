@@ -41,3 +41,8 @@ typedef struct	s_rgb
 	uint8_t	b;
 }	t_rgb;
 
+typedef struct	s_position
+{
+	int	x;
+	int	y;
+}	t_position;

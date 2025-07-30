@@ -1,18 +1,20 @@
 #include "../../include/cub3d.h"
 
 static void	skip_empty_line(char **line, int fd);
-static bool	validate_map(t_engine *engine, char *line);
+static bool	validate_map(t_engine *engine, char *line, int y);
 
 int process_map(t_engine *engine, int fd)
 {
 	char	*line;
 	char	*tmp;
 	bool	error;
+	int		y;
 
 	engine->player_found = false;
 	error = false;
 	line = get_next_line(fd);
 	tmp = NULL;
+	y = 0;
 	skip_empty_line(&line, fd);
 	//printf("%s", line); //DEBUG printf TODO
 	while (line)
@@ -20,14 +22,14 @@ int process_map(t_engine *engine, int fd)
 		//printf("%s\n", line); //DEBUG printf TODO
 		if (!error)
 		{
-			error = validate_map(engine, line);
+			error = validate_map(engine, line, y);
 			tmp = ft_strjoin_free(tmp, line);
 			if (!tmp)
 				return (1);
-			printf("%s", line);
+			//printf("%s", line);
 			engine->map->height++;
 		}
-
+		y++;
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -61,7 +63,7 @@ static void	skip_empty_line(char **line, int fd)
 	return ;
 }
 
-static bool	validate_map(t_engine *engine, char *line)
+static bool	validate_map(t_engine *engine, char *line, int y)
 {
 	size_t	i;
 
@@ -75,8 +77,10 @@ static bool	validate_map(t_engine *engine, char *line)
 			printf("%c", line[i]);
 			if (engine->player_found)
 				return (true);
+			engine->player->x = i;
+			engine->player->y = y;
+			// need to save player cordinate
 			engine->player_found = true;
-			printf("Player found!\n");
 		}
 		i++;
 	}

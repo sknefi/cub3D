@@ -21,6 +21,8 @@ void	free_struct(t_engine *engine)
 		free_data(engine->map_copy, engine->map->height);
 	if (engine->map)
 		free(engine->map);
+	if (engine->player)
+		free(engine->player);
 	for (int i = 0; i < 4; i++)
 	{
 		if (engine->textures[i])

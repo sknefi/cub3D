@@ -12,6 +12,7 @@ int	parser(t_engine *engine, char *filename)
 	engine->ceiling = ft_calloc(1, sizeof(t_rgb));
 	engine->floor = ft_calloc(1, sizeof(t_rgb));
 	engine->map = ft_calloc(1, sizeof(t_map));
+	engine->player = ft_calloc(1, sizeof(t_player));
 	if (check_extension(filename))
 		return (printf("Error\nWrong extension\n"), 1);
 	fd = open(filename, O_RDONLY);
@@ -22,8 +23,8 @@ int	parser(t_engine *engine, char *filename)
 	if (process_map(engine, fd))
 		return (printf("Error with parsing map\n"), close(fd), 1);
 	close(fd);
-	//if (check_map(engine))
-	//	return (1);
+	if (!check_map(engine))
+		return (1);
 	ft_printf("one day it will parse something\n");
 	return (0);
 }
