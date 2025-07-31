@@ -76,16 +76,3 @@ static bool	validate_map(t_engine *engine)
 	printf("Good map mate\n");
 	return (true);
 }
-
-/*
-static bool	closed_map(t_engine *engine)
-{
-
-	return (true);
-}
-
-static bool	valid_path(t_engine *engine)
-{
-	return (true);
-}
-*/

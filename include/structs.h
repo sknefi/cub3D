@@ -15,7 +15,6 @@ typedef struct	s_engine
 	t_map			*map;
 	char			**map_copy;
 	t_player		*player;
-	bool			player_found;
 }	t_engine;
 
 typedef struct	s_map

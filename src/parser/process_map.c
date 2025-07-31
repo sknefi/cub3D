@@ -33,7 +33,7 @@ int process_map(t_engine *engine, int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (!engine->player_found)
+	if ((engine->flags & PLAYER_SET))
 		return (free(tmp), 1); // TODO error player not found
 	engine->map->map = ft_split(tmp, '\n');
 	engine->map_copy = ft_split(tmp, '\n');
@@ -75,12 +75,11 @@ static bool	validate_map(t_engine *engine, char *line, int y)
 		if (ft_strchr("NESW", line[i]))
 		{
 			printf("%c", line[i]);
-			if (engine->player_found)
-				return (true);
+			if (engine->flags & PLAYER_FOUND)
+				return (engine->flags |= PLAYER_SET, true);
 			engine->player->x = i;
 			engine->player->y = y;
-			// need to save player cordinate
-			engine->player_found = true;
+			engine->flags |= PLAYER_FOUND;
 		}
 		i++;
 	}
