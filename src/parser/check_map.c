@@ -3,8 +3,6 @@
 
 static void	get_map_width(t_engine *engine);
 static bool	validate_map(t_engine *engine);
-//static bool	closed_map(t_engine *engine);
-//static bool	valid_path(t_engine *engine);
 
 bool	check_map(t_engine *engine)
 {
@@ -72,9 +70,8 @@ static bool	validate_map(t_engine *engine)
 		// what if it is not visited?
 		// need to check for 1, 0, ' ', etc.
 		// go to each node on up, right, down and left
-		
 	}
-	// BFS with queue and maybe bitset to take less RAM?
+	// DFS with stack and maybe bitset to take less RAM?
 	free(stack);
 	printf("Good map mate\n");
 	return (true);
