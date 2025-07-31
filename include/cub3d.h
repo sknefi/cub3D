@@ -12,7 +12,7 @@
 # include <math.h>
 
 # include "../MLX42/include/MLX42/MLX42.h"
-# include "../libft/libft.h"
+# include "../tym_libft/libft.h"
 
 # include "structs.h"
 # include "enums.h"

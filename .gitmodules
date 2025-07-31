@@ -4,3 +4,6 @@
 [submodule "libft_divinus"]
 	path = libft_divinus
 	url = https://github.com/sknefi/libft_divinus.git
+[submodule "tym_libft"]
+	path = tym_libft
+	url = git@github.com:Tym077/tym_libft.git

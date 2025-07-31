@@ -7,7 +7,7 @@ INCLUDES = -I./include -I./MLX42/include -I./libft_divinus
 
 # Libraries
 MLX42_DIR = ./MLX42
-LIBFT_DIR = ./libft
+LIBFT_DIR = ./tym_libft
 MLX42_LIB = $(MLX42_DIR)/build/libmlx42.a
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
