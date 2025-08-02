@@ -1,6 +1,4 @@
 #include "../../include/cub3d.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 static int	check_extension(char *filename);
 
@@ -8,11 +6,6 @@ int	parser(t_engine *engine, char *filename)
 {
 	int	fd;
 
-	// TODO check if fail
-	engine->ceiling = ft_calloc(1, sizeof(t_rgb));
-	engine->floor = ft_calloc(1, sizeof(t_rgb));
-	engine->map = ft_calloc(1, sizeof(t_map));
-	engine->player = ft_calloc(1, sizeof(t_player));
 	if (check_extension(filename))
 		return (printf("Error\nWrong extension\n"), 1);
 	fd = open(filename, O_RDONLY);

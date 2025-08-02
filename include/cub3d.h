@@ -21,7 +21,7 @@
 # define WIN_H 800
 # define WIN_W 600
 
-void	game_init(t_engine *engine);
+bool	init_engine(t_engine **engine);
 int		ft_isspace(char c);
 
 // Cleaner

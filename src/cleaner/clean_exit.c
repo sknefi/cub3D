@@ -1,11 +1,6 @@
 #include "../../include/cub3d.h"
 
-void	free_data(char **data, int i)
-{
-	while (i > 0)
-		free(data[--i]);
-	free(data);
-}
+static void	free_data(char **data, int i);
 
 void	free_struct(t_engine *engine)
 {
@@ -15,10 +10,12 @@ void	free_struct(t_engine *engine)
 		free(engine->ceiling);
 	if (engine->floor)
 		free(engine->floor);
-	if (engine->map->map)
-		free_data(engine->map->map, engine->map->height);
 	if (engine->map)
+	{
+		if (engine->map->map)
+			free_data(engine->map->map, engine->map->height);
 		free(engine->map);
+	}
 	if (engine->player)
 		free(engine->player);
 	for (int i = 0; i < 4; i++)
@@ -29,3 +26,11 @@ void	free_struct(t_engine *engine)
 	if (engine)
 		free(engine);
 }
+
+static void	free_data(char **data, int i)
+{
+	while (i > 0)
+		free(data[--i]);
+	free(data);
+}
+

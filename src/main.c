@@ -8,9 +8,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (printf("Usage: ./cub3d <path_to_map>\n"), 1);
-	engine = ft_calloc(1, sizeof(t_engine));
-	if (!engine)
-		return (printf("Error\nCalloc error\n"), 1);
+	if (!init_engine(&engine))
+		return (free_struct(engine), 1);
 	if (parser(engine, argv[1]))
 		return (free_struct(engine), 1);
 	parser_tester(engine);
