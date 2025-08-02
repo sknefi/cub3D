@@ -17,8 +17,6 @@ void	free_struct(t_engine *engine)
 		free(engine->floor);
 	if (engine->map->map)
 		free_data(engine->map->map, engine->map->height);
-	if (engine->map_copy)
-		free_data(engine->map_copy, engine->map->height);
 	if (engine->map)
 		free(engine->map);
 	if (engine->player)

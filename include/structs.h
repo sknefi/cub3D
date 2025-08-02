@@ -13,7 +13,6 @@ typedef struct	s_engine
 	t_rgb			*ceiling;
 	uint8_t			flags;
 	t_map			*map;
-	char			**map_copy;
 	t_player		*player;
 }	t_engine;
 

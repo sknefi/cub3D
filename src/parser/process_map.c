@@ -10,7 +10,6 @@ int process_map(t_engine *engine, int fd)
 	bool	error;
 	int		y;
 
-	engine->player_found = false;
 	error = false;
 	line = get_next_line(fd);
 	tmp = NULL;
