@@ -17,7 +17,7 @@ SRC = ./src/main.c \
 	  ./src/parser/parser.c ./src/parser/check_lines.c \
 	  ./src/parser/extract_textures.c ./src/parser/extract_colors.c \
 	  ./src/parser/process_map.c ./src/parser/check_map.c\
-	  ./src/parser/ft_isspace.c ./src/parser/parser_utils.c \
+	  ./src/parser/parser_utils.c \
 	  ./src/cleaner/clean_exit.c
 
 OBJ = $(SRC:.c=.o)

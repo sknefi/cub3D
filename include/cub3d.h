@@ -22,7 +22,6 @@
 # define WIN_W 600
 
 bool	init_engine(t_engine **engine);
-int		ft_isspace(char c);
 
 // Cleaner
 void	free_struct(t_engine *engine);

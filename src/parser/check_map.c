@@ -8,15 +8,8 @@ static bool	flags_and_stack(t_engine *engine, t_position **stack, uint8_t **map_
 bool	check_map(t_engine *engine)
 {
 	get_map_width(engine);
-	// Should I check for width = 1? or even 2	
 	if (!validate_map(engine))
 		return (false);
-	/* I think doing one algorithm for checking map will be more efficient
-	if (!closed_map(engine))
-		return (1);
-	if (!valid_path(engine))
-		return (1);
-	*/
 	return (true);
 }
 
@@ -70,9 +63,6 @@ static bool	validate_map(t_engine *engine)
 		stack[i++] = (t_position){current.x, current.y - 1};
 		stack[i++] = (t_position){current.x - 1, current.y};
 	}
-	//for (int i = 0; (uint32_t)i < (((engine->map->width * engine->map->height) + 7 ) / 8) ; i++)
-	//	free(map_flags);
-	printf("freeing %p\n", (void *)map_flags);
 	free(map_flags);
 	free(stack);
 	return (true);
@@ -86,7 +76,6 @@ static bool	flags_and_stack(t_engine *engine, t_position **stack, uint8_t **map_
 	*map_flags = malloc(size);
 	if (!(*map_flags))
 		return (false); // error message, map too big
-	printf("malloc at %p\n", (void *)*map_flags);
 	ft_memset(*map_flags, 0, size);
 	*stack = malloc(sizeof(t_position) * (engine->map->height * engine->map->width));
 	if (!(*stack))

@@ -68,7 +68,6 @@ static bool	validate_map(t_engine *engine, char *line, int y)
 			return (true);
 		if (ft_strchr("NESW", line[i]))
 		{
-			printf("%c", line[i]);
 			if (engine->flags & PLAYER_FOUND)
 				return (engine->flags |= PLAYER_SET, true);
 			engine->player->x = i;

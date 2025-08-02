@@ -1,7 +1,5 @@
 #include "../../include/cub3d.h"
 
-static void	free_data(char **data, int i);
-
 void	free_struct(t_engine *engine)
 {
 	if (engine->mlx)
@@ -13,7 +11,7 @@ void	free_struct(t_engine *engine)
 	if (engine->map)
 	{
 		if (engine->map->map)
-			free_data(engine->map->map, engine->map->height);
+			ft_free_i_data(engine->map->map, engine->map->height);
 		free(engine->map);
 	}
 	if (engine->player)
@@ -26,11 +24,3 @@ void	free_struct(t_engine *engine)
 	if (engine)
 		free(engine);
 }
-
-static void	free_data(char **data, int i)
-{
-	while (i > 0)
-		free(data[--i]);
-	free(data);
-}
-
