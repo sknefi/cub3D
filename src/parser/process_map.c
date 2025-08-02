@@ -15,31 +15,26 @@ int process_map(t_engine *engine, int fd)
 	tmp = NULL;
 	y = 0;
 	skip_empty_line(&line, fd);
-	//printf("%s", line); //DEBUG printf TODO
 	while (line)
 	{
-		//printf("%s\n", line); //DEBUG printf TODO
 		if (!error)
 		{
 			error = validate_map(engine, line, y);
 			tmp = ft_strjoin_free(tmp, line);
 			if (!tmp)
 				return (1);
-			//printf("%s", line);
 			engine->map->height++;
 		}
 		y++;
 		free(line);
 		line = get_next_line(fd);
 	}
-	if ((engine->flags & PLAYER_SET))
+	if ((engine->flags & PLAYER_SET) || !(engine->flags & PLAYER_FOUND))
 		return (free(tmp), 1); // TODO error player not found
 	engine->map->map = ft_split(tmp, '\n');
-	engine->map_copy = ft_split(tmp, '\n');
-	if (!engine->map->map || !engine->map_copy)
+	if (!engine->map->map)
 		return (free(tmp), 1);
 	free(tmp);
-	printf("HERE SHOULD BE MAP PARSER\n"); //DEBUG printf TODO
 	return (0);
 }
 
