@@ -25,5 +25,6 @@ bool	init_engine(t_engine **engine);
 
 // Cleaner
 void	free_struct(t_engine *engine);
+int		ft_error(char *str);
 
 #endif

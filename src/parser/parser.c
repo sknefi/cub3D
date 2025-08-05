@@ -7,18 +7,17 @@ int	parser(t_engine *engine, char *filename)
 	int	fd;
 
 	if (check_extension(filename))
-		return (printf("Error\nWrong extension\n"), 1);
+		return (ft_error("Wrong extension"));
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (perror("Error\n"), 1);
 	if (check_lines(engine, fd))
-		return (printf("Error\nIssue with textures\n"), close(fd), 1);
+		return (close(fd), ft_error("Issue with textures"));
 	if (process_map(engine, fd))
-		return (printf("Error with parsing map\n"), close(fd), 1);
+		return (close(fd), ft_error("Error with parsing map"));
 	close(fd);
 	if (!check_map(engine))
-		return (1);
-	ft_printf("one day it will parse something\n");
+		return (ft_error("Strange map"));
 	return (0);
 }
 

@@ -13,6 +13,8 @@ bool	check_map(t_engine *engine)
 	return (true);
 }
 
+// Obtain the width of map, by calculating the widest row.
+
 static void	get_map_width(t_engine *engine)
 {
 	size_t	i;
@@ -31,6 +33,13 @@ static void	get_map_width(t_engine *engine)
 	}
 	engine->map->width = max;
 }
+
+/*
+ * Validate map, by checking if it is closed by walls (1).
+ * Uses DFS and stack.
+ * It is saving memory by having flags set/check bit for visited square.
+ * Return true on success, otherwise false.
+ */
 
 static bool	validate_map(t_engine *engine)
 {
@@ -51,7 +60,7 @@ static bool	validate_map(t_engine *engine)
 		if (current.x < 0 || current.y < 0 || current.x > (int)engine->map->width || current.y > (int)engine->map->height)
 			return (free(stack), free(map_flags), false);
 		if (engine->map->map[current.y][current.x] == ' ')
-			return (free(stack), free(map_flags), false); // error, map is not closed
+			return (free(stack), free(map_flags), false);
 		if (engine->map->map[current.y][current.x] == '1')
 			continue ;
 		index = current.x * engine->map->height + current.y;
@@ -68,6 +77,14 @@ static bool	validate_map(t_engine *engine)
 	return (true);
 }
 
+/*
+ * Function that prepares stack and flags for checking map.
+ * Takes addresses from validate_map().
+ * Allocates memory for stack and flags.
+ * @size: need to allocate whole bytes, so + 7 ensures that it will be whole bit, becasue dividing by 8 can cound size to smaller size than needed.
+ * Return true on success, otherwise false
+ */
+
 static bool	flags_and_stack(t_engine *engine, t_position **stack, uint8_t **map_flags)
 {
 	size_t	size;
@@ -75,13 +92,13 @@ static bool	flags_and_stack(t_engine *engine, t_position **stack, uint8_t **map_
 	size = ((engine->map->width * engine->map->height) + 7) / 8;
 	*map_flags = malloc(size);
 	if (!(*map_flags))
-		return (false); // error message, map too big
+		return (false);
 	ft_memset(*map_flags, 0, size);
 	*stack = malloc(sizeof(t_position) * (engine->map->height * engine->map->width));
 	if (!(*stack))
 	{
 		free(*map_flags);
-		return (false); // Need to add error message, that to big map
+		return (false);
 	}
 	return (true);
 }

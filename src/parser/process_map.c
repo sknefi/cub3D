@@ -30,7 +30,7 @@ int process_map(t_engine *engine, int fd)
 		line = get_next_line(fd);
 	}
 	if ((engine->flags & PLAYER_SET) || !(engine->flags & PLAYER_FOUND))
-		return (free(tmp), 1); // TODO error player not found
+		return (free(tmp), 1);
 	engine->map->map = ft_split(tmp, '\n');
 	if (!engine->map->map)
 		return (free(tmp), 1);

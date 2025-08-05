@@ -1,8 +1,14 @@
 #include "../../include/cub3d.h"
 
-static int	process_line(t_engine *engine, char *line, size_t length);
+static int	process_line(t_engine *engine, char *line);
 static int	determine_cardinal_point(t_engine *engine, char *line, char **dir);
-static int	check_set(t_engine *engine, char *line, size_t length);
+static int	check_set(t_engine *engine, char *line);
+
+/*
+ * Checks every lines till it gets all textures and colors requried from map.
+ * Checks engine->flags, first 6 bits.
+ * On error returns 1, 0 on success.
+ */
 
 int	check_lines(t_engine *engine, int fd)
 {
@@ -19,7 +25,7 @@ int	check_lines(t_engine *engine, int fd)
 		{
 			length = ft_strlen(line);
 			trim_new_line(&line, length);
-			exit_status = check_set(engine, line, length);
+			exit_status = check_set(engine, line);
 		}
 		free(line);
 		if ((engine->flags & ALL_SET) == ALL_SET)
@@ -29,23 +35,27 @@ int	check_lines(t_engine *engine, int fd)
 	return (exit_status);
 }
  // TODO erase it
-static int	check_set(t_engine *engine, char *line, size_t length)
+static int	check_set(t_engine *engine, char *line)
 {
 	int	exit_status;
 
 	exit_status = 1;
 	if ((engine->flags & ALL_SET) != ALL_SET)
-		exit_status = process_line(engine, line, length);
+		exit_status = process_line(engine, line);
 	return (exit_status);
 }
 
-static int	process_line(t_engine *engine, char *line, size_t length)
+/*
+ * Going throught line, checks if it is texture or colour.
+ * Returns 0 on success, 1 on error.
+ */
+
+static int	process_line(t_engine *engine, char *line)
 {
 	char	*ptr;
 	char	*tmp;
 	size_t	i;
 
-	(void)length;
 	ptr = line;
 	i = 0;
 	tmp = malloc(3);
@@ -73,6 +83,12 @@ static int	process_line(t_engine *engine, char *line, size_t length)
 	free(tmp);
 	return (0);
 }
+
+/*
+ * Checks for what direction the texture should be.
+ * Also setting texture flag and checking if it was set before.
+ * Returns 0 on success, 1 on fail.
+ */
 
 static int	determine_cardinal_point(t_engine *engine, char *line, char **dir)
 {

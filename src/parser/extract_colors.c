@@ -29,6 +29,11 @@ int	extract_colors(t_engine *engine, char *line, char **id, size_t i)
 	return (exit_status);
 }
 
+/*
+ * Function that extract RGB color from line;
+ * Return 0 on success, otherwise 1.
+ */
+
 static int	extract_color(t_engine *engine, char *line, t_color_types type)
 {
 	size_t	i;
@@ -54,6 +59,8 @@ static int	extract_color(t_engine *engine, char *line, t_color_types type)
 	return (0);
 }
 
+// Checking if RGB values will owerflow
+
 static bool	check_rgb(char **rgb)
 {
 	size_t	i;
@@ -72,6 +79,8 @@ static bool	check_rgb(char **rgb)
 	return (true);
 }
 
+// Checking if has more than 3 digits
+
 static bool	check_overflow(char *color)
 {
 	size_t	i;
@@ -87,6 +96,8 @@ static bool	check_overflow(char *color)
 		return (false);
 	return (true);
 }
+
+// Saving rgb in main struct.
 
 static bool	save_rgb(t_engine *engine, char **rgb, t_color_types type)
 {
