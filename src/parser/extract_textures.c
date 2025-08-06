@@ -4,8 +4,8 @@ static t_textures_dir	get_direction(char *dir);
 
 int	extract_texture(t_engine *engine, char *line, char *dir)
 {
-	size_t	i;
-	size_t	j;
+	size_t			i;
+	size_t			j;
 	t_textures_dir	direction;
 
 	i = 0;
@@ -15,7 +15,7 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 		return (1);
 	while (line[i])
 	{
-		if(!ft_isspace(line[i]))
+		if (!ft_isspace(line[i]))
 			line[j++] = line[i];
 		i++;
 	}

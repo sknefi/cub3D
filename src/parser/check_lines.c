@@ -19,7 +19,7 @@ int	check_lines(t_engine *engine, int fd)
 	exit_status = 0;
 	line = get_next_line(fd);
 	length = 0;
-	while(line)
+	while (line)
 	{
 		if (!exit_status)
 		{
@@ -34,7 +34,8 @@ int	check_lines(t_engine *engine, int fd)
 	}
 	return (exit_status);
 }
- // TODO erase it
+
+// TODO erase it
 static int	check_set(t_engine *engine, char *line)
 {
 	int	exit_status;
@@ -50,7 +51,7 @@ static int	check_set(t_engine *engine, char *line)
  * Returns 0 on success, 1 on error.
  */
 
-static int	process_line(t_engine *engine, char *line)
+static int	process_line(t_engine *engine, char *line) // TODO more than 25 lines
 {
 	char	*ptr;
 	char	*tmp;
@@ -61,7 +62,7 @@ static int	process_line(t_engine *engine, char *line)
 	tmp = malloc(3);
 	if (!tmp)
 		return (1);
-	while(*ptr)
+	while (*ptr)
 	{
 		if (!ft_isspace(*ptr))
 			tmp[i++] = *ptr;
@@ -90,10 +91,10 @@ static int	process_line(t_engine *engine, char *line)
  * Returns 0 on success, 1 on fail.
  */
 
-static int	determine_cardinal_point(t_engine *engine, char *line, char **dir)
+static int	determine_cardinal_point(t_engine *engine, char *line, char **dir) //TODO more than 2 lines
 {
 	int	exit_status;
-	
+
 	exit_status = 1;
 	if (ft_strcmp(*dir, "NO") == 0)
 	{
@@ -126,4 +127,3 @@ static int	determine_cardinal_point(t_engine *engine, char *line, char **dir)
 	dir = NULL;
 	return (exit_status);
 }
-

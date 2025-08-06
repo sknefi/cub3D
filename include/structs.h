@@ -4,7 +4,7 @@ typedef struct s_map	t_map;
 typedef struct s_player	t_player;
 typedef struct s_rgb	t_rgb;
 
-typedef struct	s_engine
+typedef struct s_engine
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img[4];
@@ -16,14 +16,14 @@ typedef struct	s_engine
 	t_player		*player;
 }	t_engine;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	char		**map;
 	uint32_t	height;
 	uint32_t	width;
 }	t_map;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	float	x;
 	float	y;
@@ -32,14 +32,14 @@ typedef struct	s_player
 	float	angle;
 }	t_player;
 
-typedef struct	s_rgb
+typedef struct s_rgb
 {
 	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
 }	t_rgb;
 
-typedef struct	s_position
+typedef struct s_position
 {
 	int	x;
 	int	y;

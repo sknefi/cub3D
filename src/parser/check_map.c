@@ -3,7 +3,8 @@
 
 static void	get_map_width(t_engine *engine);
 static bool	validate_map(t_engine *engine);
-static bool	flags_and_stack(t_engine *engine, t_position **stack, uint8_t **map_flags);
+static bool	flags_and_stack(t_engine *engine, t_position **stack, \
+	uint8_t **map_flags);
 
 bool	check_map(t_engine *engine)
 {
@@ -46,7 +47,7 @@ static bool	validate_map(t_engine *engine)
 	t_position	*stack;
 	t_position	current;
 	uint8_t		*map_flags;
-	int			index;
+	//int			index; add it to check_current_postion
 	int			i;
 
 	if (!flags_and_stack(engine, &stack, &map_flags))
@@ -57,16 +58,19 @@ static bool	validate_map(t_engine *engine)
 	while (i > 0)
 	{
 		current = stack[--i];
-		if (current.x < 0 || current.y < 0 || current.x > (int)engine->map->width || current.y > (int)engine->map->height)
+		check_current_position(engine, current, &map_flags);
+		/*if (current.x < 0 || current.y < 0 || \
+			current.x > (int)engine->map->width || \
+			current.y > (int)engine->map->height)
 			return (free(stack), free(map_flags), false);
 		if (engine->map->map[current.y][current.x] == ' ')
 			return (free(stack), free(map_flags), false);
 		if (engine->map->map[current.y][current.x] == '1')
 			continue ;
-		index = current.x * engine->map->height + current.y;
+		// index = current.x * engine->map->height + current.y;
 		if ((map_flags[index / 8] >> (index % 8)) & 1)
 			continue ;
-		map_flags[index / 8] |= (1 << (index % 8));
+		map_flags[index / 8] |= (1 << (index % 8)); */ // put it to check_current_position()
 		stack[i++] = (t_position){current.x, current.y + 1};
 		stack[i++] = (t_position){current.x + 1, current.y};
 		stack[i++] = (t_position){current.x, current.y - 1};
@@ -85,7 +89,8 @@ static bool	validate_map(t_engine *engine)
  * Return true on success, otherwise false
  */
 
-static bool	flags_and_stack(t_engine *engine, t_position **stack, uint8_t **map_flags)
+static bool	flags_and_stack(t_engine *engine, t_position **stack, \
+	uint8_t **map_flags)
 {
 	size_t	size;
 
@@ -94,7 +99,8 @@ static bool	flags_and_stack(t_engine *engine, t_position **stack, uint8_t **map_
 	if (!(*map_flags))
 		return (false);
 	ft_memset(*map_flags, 0, size);
-	*stack = malloc(sizeof(t_position) * (engine->map->height * engine->map->width));
+	*stack = malloc(sizeof(t_position) * \
+		(engine->map->height * engine->map->width));
 	if (!(*stack))
 	{
 		free(*map_flags);

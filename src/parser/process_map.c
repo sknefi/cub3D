@@ -3,7 +3,7 @@
 static void	skip_empty_line(char **line, int fd);
 static bool	validate_map(t_engine *engine, char *line, int y);
 
-int process_map(t_engine *engine, int fd)
+int	process_map(t_engine *engine, int fd) //TODO more than 25
 {
 	char	*line;
 	char	*tmp;
