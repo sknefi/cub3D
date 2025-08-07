@@ -11,8 +11,7 @@
 # define COLOR_CEILING (1 << 5)
 # define PLAYER_FOUND (1 << 6)
 # define PLAYER_SET (1 << 7)
-# define ALL_SET (TEXTURE_NO | TEXTURE_EA | TEXTURE_SO \
-    | TEXTURE_WE | COLOR_FLOOR | COLOR_CEILING)
+# define ALL_SET (TEXTURE_NO | TEXTURE_EA | TEXTURE_SO | TEXTURE_WE | COLOR_FLOOR | COLOR_CEILING)
 
 typedef struct s_engine	t_engine;
 

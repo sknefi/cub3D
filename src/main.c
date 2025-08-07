@@ -12,7 +12,8 @@ int	main(int argc, char **argv)
 		return (free_struct(engine), 1);
 	if (parser(engine, argv[1]))
 		return (free_struct(engine), 1);
-	parser_tester(engine);
+	if (0)
+		parser_tester(engine);
 	// cub3d baby!!!
 	ft_printf("cubenzi 3denzi\n");
 	free_struct(engine);	

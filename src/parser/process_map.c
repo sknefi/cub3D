@@ -23,7 +23,6 @@ int	process_map(t_engine *engine, int fd) //TODO more than 25
 			tmp = ft_strjoin_free(tmp, line);
 			if (!tmp)
 				return (1);
-			engine->map->height++;
 		}
 		y++;
 		free(line);
@@ -60,12 +59,16 @@ static void	skip_empty_line(char **line, int fd)
 static bool	validate_map(t_engine *engine, char *line, int y)
 {
 	size_t	i;
+	bool	found;
 
+	found = false;
 	i = 0;
 	while (line[i])
 	{
 		if (!ft_strchr("10 NESW'\n'", line[i]))
 			return (true);
+		if (ft_strchr("10", line[i]))
+			found = true;
 		if (ft_strchr("NESW", line[i]))
 		{
 			if (engine->flags & PLAYER_FOUND)
@@ -76,5 +79,8 @@ static bool	validate_map(t_engine *engine, char *line, int y)
 		}
 		i++;
 	}
+	if (!found)
+		return (true);
+	engine->map->height++;
 	return (false);
 }

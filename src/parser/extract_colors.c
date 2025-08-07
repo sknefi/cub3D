@@ -9,7 +9,6 @@ int	extract_colors(t_engine *engine, char *line, char **id, size_t i)
 {
 	int	exit_status;
 
-	(void)engine;
 	exit_status = 1;
 	(*id)[i] = '\0';
 	if (ft_strcmp(*id, "F") == 0)
@@ -92,7 +91,7 @@ static bool	check_overflow(char *color)
 			return (false);
 		i++;
 	}
-	if (i != 3)
+	if (i > 3)
 		return (false);
 	return (true);
 }
