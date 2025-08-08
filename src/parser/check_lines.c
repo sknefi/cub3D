@@ -28,10 +28,6 @@ int	check_lines(t_engine *engine, int fd)
 			exit_status = check_set(engine, line);
 		}
 		free(line);
-		// DEBUG
-			printf("flags: %d / 0x%X\n", engine->flags, engine->flags);
-			printf("ALL_SET: %d / 0x%X\n", ALL_SET, ALL_SET);
-		// end
 		if ((engine->flags & ALL_SET) == ALL_SET)
 			break ;
 		line = get_next_line(fd);

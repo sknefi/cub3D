@@ -22,8 +22,8 @@ int	extract_colors(t_engine *engine, char *line, char **id, size_t i)
 	{
 		if (engine->flags & COLOR_CEILING)
 			return (1);
-		exit_status = extract_color(engine, line, CEILING);
-		engine->flags |= COLOR_CEILING;
+		if (!(exit_status = extract_color(engine, line, CEILING))) // need to first check for exit status
+			engine->flags |= COLOR_CEILING;
 	}
 	return (exit_status);
 }
@@ -75,6 +75,8 @@ static bool	check_rgb(char **rgb)
 			return (false);
 		i++;
 	}
+	if (i != 3)
+		return false;
 	return (true);
 }
 
