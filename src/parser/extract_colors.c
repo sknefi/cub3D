@@ -16,13 +16,15 @@ int	extract_colors(t_engine *engine, char *line, char **id, size_t i)
 		if (engine->flags & COLOR_FLOOR)
 			return (1);
 		exit_status = extract_color(engine, line, FLOOR);
-		engine->flags |= COLOR_FLOOR;
+		if (!exit_status)
+			engine->flags |= COLOR_FLOOR;
 	}
 	else if (ft_strcmp(*id, "C") == 0)
 	{
 		if (engine->flags & COLOR_CEILING)
 			return (1);
-		if (!(exit_status = extract_color(engine, line, CEILING))) // need to first check for exit status
+		exit_status = extract_color(engine, line, CEILING);
+		if (!exit_status)
 			engine->flags |= COLOR_CEILING;
 	}
 	return (exit_status);

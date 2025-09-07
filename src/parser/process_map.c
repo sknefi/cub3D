@@ -1,7 +1,7 @@
 #include "../../include/cub3d.h"
 
 static void	skip_empty_line(char **line, int fd);
-static bool	validate_map(t_engine *engine, char *line, int y);
+static int	validate_map(t_engine *engine, char *line, int y);
 
 int	process_map(t_engine *engine, int fd) //TODO more than 25
 {
@@ -10,7 +10,7 @@ int	process_map(t_engine *engine, int fd) //TODO more than 25
 	bool	error;
 	int		y;
 
-	error = false;
+	error = 0;
 	line = get_next_line(fd);
 	tmp = NULL;
 	y = 0;
@@ -56,23 +56,23 @@ static void	skip_empty_line(char **line, int fd)
 	return ;
 }
 
-static bool	validate_map(t_engine *engine, char *line, int y)
+static int	validate_map(t_engine *engine, char *line, int y)
 {
 	size_t	i;
-	bool	found;
+	int	found;
 
 	found = false;
 	i = 0;
 	while (line[i])
 	{
 		if (!ft_strchr("10 NESW'\n'", line[i]))
-			return (true);
+			return (0);
 		if (ft_strchr("10", line[i]))
-			found = true;
+			found = 1;
 		if (ft_strchr("NESW", line[i]))
 		{
 			if (engine->flags & PLAYER_FOUND)
-				return (engine->flags |= PLAYER_SET, true);
+				return (engine->flags |= PLAYER_SET, 0);
 			engine->player->x = i;
 			engine->player->y = y;
 			engine->flags |= PLAYER_FOUND;
@@ -80,7 +80,7 @@ static bool	validate_map(t_engine *engine, char *line, int y)
 		i++;
 	}
 	if (!found)
-		return (true);
+		return (0);
 	engine->map->height++;
-	return (false);
+	return (1);
 }
