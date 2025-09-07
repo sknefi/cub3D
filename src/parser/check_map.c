@@ -5,7 +5,8 @@ static void	get_map_width(t_engine *engine);
 static bool	validate_map(t_engine *engine);
 static bool	flags_and_stack(t_engine *engine, t_position **stack, \
 	uint8_t **map_flags);
-static int	check_current_position(t_engine *engine, t_position current, uint8_t *map_flags);
+static int	check_current_position(t_engine *engine, t_position current, \
+	uint8_t *map_flags);
 
 bool	check_map(t_engine *engine)
 {
@@ -76,7 +77,9 @@ static bool	validate_map(t_engine *engine)
  * Function that prepares stack and flags for checking map.
  * Takes addresses from validate_map().
  * Allocates memory for stack and flags.
- * @size: need to allocate whole bytes, so + 7 ensures that it will be whole bit, becasue dividing by 8 can cound size to smaller size than needed.
+ * @size: need to allocate whole bytes, so + 7 ensures that it will be 
+	whole bit, becasue dividing by 8 can round size to smaller size 
+	than needed
  * Return true on success, otherwise false
  */
 
@@ -100,7 +103,8 @@ static bool	flags_and_stack(t_engine *engine, t_position **stack, \
 	return (true);
 }
 
-static int	check_current_position(t_engine *engine, t_position current, uint8_t *map_flags)
+static int	check_current_position(t_engine *engine, t_position current, \
+	uint8_t *map_flags)
 {
 	int	index;
 
@@ -108,14 +112,14 @@ static int	check_current_position(t_engine *engine, t_position current, uint8_t 
 	if (current.x < 0 || current.y < 0 || \
 			current.x > (int)engine->map->width || \
 			current.y > (int)engine->map->height)
-			return (1);
+		return (1);
 	if (engine->map->map[current.y][current.x] == ' ')
-			return (1);
+		return (1);
 	if (engine->map->map[current.y][current.x] == '1')
-			return (-1);
+		return (-1);
 	index = current.x * engine->map->height + current.y;
 	if ((map_flags[index / 8] >> (index % 8)) & 1)
-			return (-1);
+		return (-1);
 	map_flags[index / 8] |= (1 << (index % 8));
 	return (0);
 }

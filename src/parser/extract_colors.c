@@ -76,7 +76,7 @@ static bool	check_rgb(char **rgb)
 		i++;
 	}
 	if (i != 3)
-		return false;
+		return (false);
 	return (true);
 }
 
