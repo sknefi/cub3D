@@ -44,3 +44,9 @@ typedef struct s_position
 	int	x;
 	int	y;
 }	t_position;
+
+typedef struct	s_parser
+{
+	char	*line;
+	bool	error;
+}	t_parser;

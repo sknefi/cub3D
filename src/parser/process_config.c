@@ -51,16 +51,11 @@ static int	check_set(t_engine *engine, char *line)
  * Returns 0 on success, 1 on error.
  */
 
-static int	process_line(t_engine *engine, char *line) // TODO more than 25 lines
+static int	process_line(t_engine *engine, char *line)
 {
-	char	*ptr;
-	char	*tmp;
-	size_t	i;
+	t_parser_config	strucutre;
 
-	ptr = line;
-	i = 0;
-	tmp = malloc(3);
-	if (!tmp)
+	if (prepare_parser_values(&structure, line))
 		return (1);
 	while (*ptr)
 	{
@@ -83,6 +78,15 @@ static int	process_line(t_engine *engine, char *line) // TODO more than 25 lines
 	}
 	free(tmp);
 	return (0);
+}
+
+static int	prepare_parser_values(t_parser_config **structure, char *line)
+{
+	ptr = line;
+	i = 0;
+	tmp = malloc(3);
+	if (!tmp)
+		return (1);
 }
 
 /*

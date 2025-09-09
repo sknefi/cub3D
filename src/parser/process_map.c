@@ -1,32 +1,28 @@
 #include "../../include/cub3d.h"
 
+static void	prepare_parser(t_parser **structure, int fd, char *tmp, int y);
 static void	skip_empty_line(char **line, int fd);
 static int	validate_map(t_engine *engine, char *line, int y);
 
-int	process_map(t_engine *engine, int fd) //TODO more than 25
+int	process_map(t_engine *engine, int fd)
 {
-	char	*line;
-	char	*tmp;
-	bool	error;
-	int		y;
+	t_parser	parse;
+	char		*tmp;
 
-	error = 0;
-	line = get_next_line(fd);
-	tmp = NULL;
-	y = 0;
+	prepare_parser(&parse);
 	skip_empty_line(&line, fd);
-	while (line)
+	while (structure.line)
 	{
-		if (!error)
+		if (!structure.error)
 		{
-			error = validate_map(engine, line, y);
-			tmp = ft_strjoin_free(tmp, line);
+			parse.error = validate_map(engine, stucutre.line, stucutre.y);
+			tmp = ft_strjoin_free(tmp, stucutre.line);
 			if (!tmp)
 				return (1);
 		}
-		y++;
-		free(line);
-		line = get_next_line(fd);
+		strucuture.y++;
+		free(structure.line);
+		parse.line = get_next_line(fd);
 	}
 	if ((engine->flags & PLAYER_SET) || !(engine->flags & PLAYER_FOUND))
 		return (free(tmp), 1);
@@ -37,8 +33,12 @@ int	process_map(t_engine *engine, int fd) //TODO more than 25
 	return (0);
 }
 
-static void	process(bool *error, t_engine *engine, char *line, int y, char *tmp)
+static void	prepare_parser(t_parser **structure, int fd, char *tmp)
 {
+	structure.line = get_next_line(fd);
+	structure.error = 0;
+	structure.y = 0;
+	tmp = NULL;
 }
 
 static void	skip_empty_line(char **line, int fd)
@@ -63,7 +63,7 @@ static void	skip_empty_line(char **line, int fd)
 static int	validate_map(t_engine *engine, char *line, int y)
 {
 	size_t	i;
-	int	found;
+	int		found;
 
 	found = false;
 	i = 0;
