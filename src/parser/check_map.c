@@ -78,8 +78,8 @@ static bool	validate_map(t_engine *engine)
  * Takes addresses from validate_map().
  * Allocates memory for stack and flags.
  * @size: need to allocate whole bytes, so + 7 ensures that it will be 
-	whole bit, becasue dividing by 8 can round size to smaller size 
-	than needed
+ * whole bit, becasue dividing by 8 can round size to smaller size 
+ * than needed
  * Return true on success, otherwise false
  */
 

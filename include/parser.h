@@ -16,7 +16,7 @@
 typedef struct s_engine	t_engine;
 
 int		parser(t_engine *engine, char *filename);
-int		check_lines(t_engine *engine, int fd);
+int		process_config(t_engine *engine, int fd);
 int		process_map(t_engine *engine, int fd);
 bool	check_map(t_engine *engine);
 
