@@ -10,7 +10,7 @@ static int	check_set(t_engine *engine, char *line);
  * On error returns 1, 0 on success.
  */
 
-int	check_lines(t_engine *engine, int fd)
+int	process_config(t_engine *engine, int fd)
 {
 	char	*line;
 	size_t	length;
@@ -91,7 +91,7 @@ static int	process_line(t_engine *engine, char *line) // TODO more than 25 lines
  * Returns 0 on success, 1 on fail.
  */
 
-static int	determine_cardinal_point(t_engine *engine, char *line, char **dir) //TODO more than 2 lines
+static int	determine_cardinal_point(t_engine *engine, char *line, char **dir) //TODO more than 25 lines, maybe do hash tables?
 {
 	int	exit_status;
 

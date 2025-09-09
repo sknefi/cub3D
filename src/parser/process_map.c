@@ -37,6 +37,10 @@ int	process_map(t_engine *engine, int fd) //TODO more than 25
 	return (0);
 }
 
+static void	process(bool *error, t_engine *engine, char *line, int y, char *tmp)
+{
+}
+
 static void	skip_empty_line(char **line, int fd)
 {
 	size_t	i;

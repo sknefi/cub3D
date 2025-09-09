@@ -11,7 +11,7 @@ int	parser(t_engine *engine, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (perror("Error\n"), 1);
-	if (check_lines(engine, fd)) // need to change to process_config()
+	if (process_config(engine, fd))
 		return (close(fd), ft_error("Issue with textures"));
 	if (process_map(engine, fd))
 		return (close(fd), ft_error("Error with parsing map"));
