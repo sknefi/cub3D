@@ -49,4 +49,12 @@ typedef struct	s_parser
 {
 	char	*line;
 	bool	error;
+	int		y;
 }	t_parser;
+
+typedef struct	s_parser_config
+{
+	char	*ptr;
+	char	*tmp;
+	int		i;
+}	t_parser_config;

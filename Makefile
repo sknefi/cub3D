@@ -14,7 +14,8 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 # Source files
 SRC = ./src/main.c \
 	  ./src/init/init.c \
-	  ./src/parser/parser.c ./src/parser/check_lines.c \
+	  ./src/parser/parser.c \
+	  ./src/parser/process_config.c \
 	  ./src/parser/extract_textures.c ./src/parser/extract_colors.c \
 	  ./src/parser/process_map.c ./src/parser/check_map.c\
 	  ./src/parser/parser_utils.c \

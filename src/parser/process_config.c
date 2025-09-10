@@ -1,5 +1,6 @@
 #include "../../include/cub3d.h"
 
+static int	prepare_parser_values(t_parser_config *structure, char *line);
 static int	process_line(t_engine *engine, char *line);
 static int	determine_cardinal_point(t_engine *engine, char *line, char **dir);
 static int	check_set(t_engine *engine, char *line);
@@ -53,40 +54,41 @@ static int	check_set(t_engine *engine, char *line)
 
 static int	process_line(t_engine *engine, char *line)
 {
-	t_parser_config	strucutre;
+	t_parser_config	structure;
 
 	if (prepare_parser_values(&structure, line))
 		return (1);
-	while (*ptr)
+	while (*structure.ptr)
 	{
-		if (!ft_isspace(*ptr))
-			tmp[i++] = *ptr;
-		ptr++;
-		if (i == 1 && (tmp[0] == 'F' || tmp[0] == 'C'))
+		if (!ft_isspace(*structure.ptr))
+			structure.tmp[structure.i++] = *structure.ptr;
+		structure.ptr++;
+		if (structure.i == 1 && (structure.tmp[0] == 'F' || structure.tmp[0] == 'C'))
 		{
-			if (extract_colors(engine, ptr, &tmp, i))
-				return (free(tmp), 1);
+			if (extract_colors(engine, structure.ptr, &structure.tmp, structure.i))
+				return (free(structure.tmp), 1);
 			break ;
 		}
-		if (i == 2)
+		if (structure.i == 2)
 		{
-			tmp[i] = '\0';
-			if (determine_cardinal_point(engine, ptr, &tmp))
-				return (free(tmp), 1);
+			structure.tmp[structure.i] = '\0';
+			if (determine_cardinal_point(engine, structure.ptr, &structure.tmp))
+				return (free(structure.tmp), 1);
 			break ;
 		}
 	}
-	free(tmp);
+	free(structure.tmp);
 	return (0);
 }
 
-static int	prepare_parser_values(t_parser_config **structure, char *line)
+static int	prepare_parser_values(t_parser_config *structure, char *line)
 {
-	ptr = line;
-	i = 0;
-	tmp = malloc(3);
-	if (!tmp)
+	structure->ptr = line;
+	structure->i = 0;
+	structure->tmp = malloc(3);
+	if (!structure->tmp)
 		return (1);
+	return (0);
 }
 
 /*

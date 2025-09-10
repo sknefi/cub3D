@@ -1,28 +1,28 @@
 #include "../../include/cub3d.h"
 
-static void	prepare_parser(t_parser **structure, int fd, char *tmp, int y);
+static void	prepare_parser(t_parser *structure, int fd, char **tmp);
 static void	skip_empty_line(char **line, int fd);
 static int	validate_map(t_engine *engine, char *line, int y);
 
 int	process_map(t_engine *engine, int fd)
 {
-	t_parser	parse;
+	t_parser	structure;
 	char		*tmp;
 
-	prepare_parser(&parse);
-	skip_empty_line(&line, fd);
+	prepare_parser(&structure, fd, &tmp);
+	skip_empty_line(&structure.line, fd);
 	while (structure.line)
 	{
 		if (!structure.error)
 		{
-			parse.error = validate_map(engine, stucutre.line, stucutre.y);
-			tmp = ft_strjoin_free(tmp, stucutre.line);
+			structure.error = validate_map(engine, structure.line, structure.y);
+			tmp = ft_strjoin_free(tmp, structure.line);
 			if (!tmp)
 				return (1);
 		}
-		strucuture.y++;
+		structure.y++;
 		free(structure.line);
-		parse.line = get_next_line(fd);
+		structure.line = get_next_line(fd);
 	}
 	if ((engine->flags & PLAYER_SET) || !(engine->flags & PLAYER_FOUND))
 		return (free(tmp), 1);
@@ -33,12 +33,12 @@ int	process_map(t_engine *engine, int fd)
 	return (0);
 }
 
-static void	prepare_parser(t_parser **structure, int fd, char *tmp)
+static void	prepare_parser(t_parser *structure, int fd, char **tmp)
 {
-	structure.line = get_next_line(fd);
-	structure.error = 0;
-	structure.y = 0;
-	tmp = NULL;
+	structure->line = get_next_line(fd);
+	structure->error = 0;
+	structure->y = 0;
+	*tmp = NULL;
 }
 
 static void	skip_empty_line(char **line, int fd)
@@ -70,7 +70,7 @@ static int	validate_map(t_engine *engine, char *line, int y)
 	while (line[i])
 	{
 		if (!ft_strchr("10 NESW'\n'", line[i]))
-			return (0);
+			return (1);
 		if (ft_strchr("10", line[i]))
 			found = 1;
 		if (ft_strchr("NESW", line[i]))
@@ -84,7 +84,7 @@ static int	validate_map(t_engine *engine, char *line, int y)
 		i++;
 	}
 	if (!found)
-		return (0);
+		return (1);
 	engine->map->height++;
-	return (1);
+	return (0);
 }

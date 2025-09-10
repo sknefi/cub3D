@@ -11,10 +11,13 @@ int	parser(t_engine *engine, char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return (perror("Error\n"), 1);
+	//printf("Before process_config()");
 	if (process_config(engine, fd))
 		return (close(fd), ft_error("Issue with textures"));
+	//printf("Before process_map()");
 	if (process_map(engine, fd))
 		return (close(fd), ft_error("Error with parsing map"));
+	//printf("After process_map()");
 	close(fd);
 	if (!check_map(engine))
 		return (ft_error("Strange map"));
