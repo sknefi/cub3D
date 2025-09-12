@@ -26,7 +26,8 @@ int	process_config(t_engine *engine, int fd)
 		{
 			length = ft_strlen(line);
 			trim_new_line(&line, length);
-			exit_status = check_set(engine, line);
+			if ((engine->flags & ALL_SET) != ALL_SET)
+				exit_status = check_set(engine, line);
 		}
 		free(line);
 		if ((engine->flags & ALL_SET) == ALL_SET)
@@ -54,30 +55,30 @@ static int	check_set(t_engine *engine, char *line)
 
 static int	process_line(t_engine *engine, char *line)
 {
-	t_parser_config	structure;
+	t_parser_config	storage;
 
-	if (prepare_parser_values(&structure, line))
+	if (prepare_parser_values(&storage, line))
 		return (1);
-	while (*structure.ptr)
+	while (*storage.ptr)
 	{
-		if (!ft_isspace(*structure.ptr))
-			structure.tmp[structure.i++] = *structure.ptr;
-		structure.ptr++;
-		if (structure.i == 1 && (structure.tmp[0] == 'F' || structure.tmp[0] == 'C'))
+		if (!ft_isspace(*storage.ptr))
+			storage.tmp[storage.i++] = *storage.ptr;
+		storage.ptr++;
+		if (storage.i == 1 && (storage.tmp[0] == 'F' || storage.tmp[0] == 'C'))
 		{
-			if (extract_colors(engine, structure.ptr, &structure.tmp, structure.i))
-				return (free(structure.tmp), 1);
+			if (extract_colors(engine, storage.ptr, &storage.tmp, storage.i))
+				return (free(storage.tmp), 1);
 			break ;
 		}
-		if (structure.i == 2)
+		if (storage.i == 2)
 		{
-			structure.tmp[structure.i] = '\0';
-			if (determine_cardinal_point(engine, structure.ptr, &structure.tmp))
-				return (free(structure.tmp), 1);
+			storage.tmp[storage.i] = '\0';
+			if (determine_cardinal_point(engine, storage.ptr, &storage.tmp))
+				return (free(storage.tmp), 1);
 			break ;
 		}
 	}
-	free(structure.tmp);
+	free(storage.tmp);
 	return (0);
 }
 
