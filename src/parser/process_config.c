@@ -100,6 +100,7 @@ static int	prepare_parser_values(t_parser_config *structure, char *line)
 
 static int	determine_cardinal_point(t_engine *engine, char *line, char **dir) //TODO more than 25 lines, maybe do hash tables?
 {
+	char	*direction[4] = "NO", "";
 	int	exit_status;
 
 	exit_status = 1;
