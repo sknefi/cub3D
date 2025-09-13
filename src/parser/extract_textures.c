@@ -21,6 +21,7 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 		i++;
 	}
 	line[j] = '\0';
+	//check_extension(line); TODO
 	engine->textures[direction] = ft_strdup(line);
 	if (!engine->textures[direction])
 		return (1);

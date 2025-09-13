@@ -50,6 +50,7 @@ static bool	validate_map(t_engine *engine)
 	t_position	current;
 	uint8_t		*map_flags;
 	int			i;
+	int	tmp = 1;
 
 	if (!flags_and_stack(engine, &stack, &map_flags))
 		return (false);
@@ -58,10 +59,15 @@ static bool	validate_map(t_engine *engine)
 	while (i > 0)
 	{
 		current = stack[--i];
-		if (check_current_position(engine, current, map_flags) == 1)
+		/*if (check_current_position(engine, current, map_flags) == 1)
 			return (free(stack), free(map_flags), false);
 		else if (check_current_position(engine, current, map_flags) == -1)
-			continue ;
+			continue ;*/
+		tmp = check_current_position(engine, current, map_flags);
+		if (tmp == 1)
+			return (free(stack), free(map_flags), false);
+		else if (tmp == -1)
+			continue;
 		stack[i++] = (t_position){current.x, current.y + 1};
 		stack[i++] = (t_position){current.x + 1, current.y};
 		stack[i++] = (t_position){current.x, current.y - 1};
