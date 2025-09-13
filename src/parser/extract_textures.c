@@ -1,6 +1,7 @@
 #include "../../include/cub3d.h"
 
 static t_textures_dir	get_direction(char *dir);
+static void	set_flag(t_engine *engine, char *dir);
 
 int	extract_texture(t_engine *engine, char *line, char *dir)
 {
@@ -23,6 +24,7 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	engine->textures[direction] = ft_strdup(line);
 	if (!engine->textures[direction])
 		return (1);
+	set_flag(engine, dir);
 	return (0);
 }
 
@@ -38,4 +40,16 @@ static t_textures_dir	get_direction(char *dir)
 		return (WE);
 	else
 		return (ERROR);
+}
+
+static void	set_flag(t_engine *engine, char *dir)
+{
+	if (ft_strcmp(dir, "NO") == 0)
+		engine->flags |= TEXTURE_NO;
+	else if (ft_strcmp(dir, "EA") == 0)
+		engine->flags |= TEXTURE_EA;
+	else if (ft_strcmp(dir, "SO") == 0)
+		engine->flags |= TEXTURE_SO;
+	else if (ft_strcmp(dir, "WE") == 0)
+		engine->flags |= TEXTURE_WE;
 }
