@@ -1,6 +1,7 @@
 #include "../../include/cub3d.h"
 
 static t_textures_dir	get_direction(char *dir);
+static int	check_extension(char *line);
 static void	set_flag(t_engine *engine, char *dir);
 
 int	extract_texture(t_engine *engine, char *line, char *dir)
@@ -21,7 +22,8 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 		i++;
 	}
 	line[j] = '\0';
-	//check_extension(line); TODO
+	if (check_extension(line))
+		return (1);
 	engine->textures[direction] = ft_strdup(line);
 	if (!engine->textures[direction])
 		return (1);
@@ -41,6 +43,20 @@ static t_textures_dir	get_direction(char *dir)
 		return (WE);
 	else
 		return (ERROR);
+}
+
+static int	check_extension(char *line)
+{
+	size_t	len;
+	char	*extension;
+
+	len = ft_strlen(line);
+	if (len >= 5)
+	{
+		extension = ft_strrchr(line, '.');
+		return (ft_strcmp(extension, ".xmp"));
+	}
+	return (1);
 }
 
 static void	set_flag(t_engine *engine, char *dir)
