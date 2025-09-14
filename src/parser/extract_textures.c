@@ -54,7 +54,7 @@ static int	check_extension(char *line)
 	if (len >= 5)
 	{
 		extension = ft_strrchr(line, '.');
-		return (ft_strcmp(extension, ".xmp"));
+		return (strcmp(extension, ".xpm"));
 	}
 	return (1);
 }
