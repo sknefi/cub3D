@@ -16,6 +16,7 @@ int	main(int argc, char **argv)
 		parser_tester(engine);
 	// cub3d baby!!!
 	ft_printf("cubenzi 3denzi\n");
+	//parser_tester(engine);
 	free_struct(engine);	
 	return (0);
 }

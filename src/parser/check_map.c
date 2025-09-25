@@ -99,7 +99,7 @@ static bool	flags_and_stack(t_engine *engine, t_position **stack, \
 		return (false);
 	ft_memset(*map_flags, 0, size);
 	*stack = malloc(sizeof(t_position) * \
-		(engine->map->height * engine->map->width));
+		(engine->map->height * engine->map->width) * 2); // Added * 2, issue with invalid write size //TODO
 	if (!(*stack))
 	{
 		free(*map_flags);
