@@ -24,7 +24,7 @@ int	process_map(t_engine *engine, int fd)
 		free(structure.line);
 		structure.line = get_next_line(fd);
 	}
-	if ((engine->flags & PLAYER_SET) || !(engine->flags & PLAYER_FOUND))
+	if ((engine->flags & PLAYER_SET) || !(engine->flags & PLAYER_FOUND) || structure.error)
 		return (free(tmp), 1);
 	engine->map->map = ft_split(tmp, '\n');
 	if (!engine->map->map)
@@ -65,7 +65,7 @@ static int	validate_map(t_engine *engine, char *line, int y)
 	size_t	i;
 	int		found;
 
-	found = false;
+	found = 0;
 	i = 0;
 	while (line[i])
 	{
@@ -75,6 +75,7 @@ static int	validate_map(t_engine *engine, char *line, int y)
 			found = 1;
 		if (ft_strchr("NESW", line[i]))
 		{
+			//add new function to assign angle variable
 			if (engine->flags & PLAYER_FOUND)
 				return (engine->flags |= PLAYER_SET, 0);
 			engine->player->x = i;
