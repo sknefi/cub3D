@@ -1,0 +1,26 @@
+#include "../../include/cub3d.h"
+
+void	free_struct(t_engine *engine)
+{
+	if (engine->mlx)
+		free(engine->mlx);
+	if (engine->ceiling)
+		free(engine->ceiling);
+	if (engine->floor)
+		free(engine->floor);
+	if (engine->map)
+	{
+		if (engine->map->map)
+			ft_free_i_data(engine->map->map, engine->map->height);
+		free(engine->map);
+	}
+	if (engine->player)
+		free(engine->player);
+	for (int i = 0; i < 4; i++)
+	{
+		if (engine->textures[i])
+			free(engine->textures[i]);
+	}
+	if (engine)
+		free(engine);
+}

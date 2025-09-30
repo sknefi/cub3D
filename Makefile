@@ -7,12 +7,19 @@ INCLUDES = -I./include -I./MLX42/include -I./libft_divinus
 
 # Libraries
 MLX42_DIR = ./MLX42
-LIBFT_DIR = ./libft_divinus
+LIBFT_DIR = ./tym_libft
 MLX42_LIB = $(MLX42_DIR)/build/libmlx42.a
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 # Source files
 SRC = ./src/main.c \
+	  ./src/init/init.c \
+	  ./src/parser/parser.c \
+	  ./src/parser/process_config.c \
+	  ./src/parser/extract_textures.c ./src/parser/extract_colors.c \
+	  ./src/parser/process_map.c ./src/parser/check_map.c\
+	  ./src/parser/parser_utils.c \
+	  ./src/cleaner/ft_error.c ./src/cleaner/clean_exit.c
 
 OBJ = $(SRC:.c=.o)
 
