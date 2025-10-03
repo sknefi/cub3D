@@ -16,6 +16,10 @@ typedef struct s_engine
 	t_player		*player;
 }	t_engine;
 
+/*
+ * Used to store map, two dimentional array.
+ * Also for map width and height.
+ */
 typedef struct s_map
 {
 	char		**map;
@@ -32,6 +36,9 @@ typedef struct s_player
 	float	angle;
 }	t_player;
 
+/*
+ * Stores red, green and blue value, from 0 - 255.
+ */
 typedef struct s_rgb
 {
 	uint8_t	r;
@@ -39,12 +46,18 @@ typedef struct s_rgb
 	uint8_t	b;
 }	t_rgb;
 
+/*
+ * Structure used in DFS, to determine postion on map.
+ */
 typedef struct s_position
 {
 	int	x;
 	int	y;
 }	t_position;
 
+/*
+ * Used to store variables for map parsing.
+ */
 typedef struct	s_parser
 {
 	char	*line;
@@ -52,6 +65,9 @@ typedef struct	s_parser
 	int		y;
 }	t_parser;
 
+/*
+ * Used to store variables for configuration parsing.
+ */
 typedef struct	s_parser_config
 {
 	char	*ptr;
