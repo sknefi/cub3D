@@ -33,6 +33,10 @@ int	process_map(t_engine *engine, int fd)
 	return (0);
 }
 
+/*
+ * Prepares strucutre that holds variables for parsing map.
+ */
+
 static void	prepare_parser(t_parser *structure, int fd, char **tmp)
 {
 	structure->line = get_next_line(fd);
@@ -40,6 +44,10 @@ static void	prepare_parser(t_parser *structure, int fd, char **tmp)
 	structure->y = 0;
 	*tmp = NULL;
 }
+
+/*
+ * Skip lines between last config line and first line of map.
+ */
 
 static void	skip_empty_line(char **line, int fd)
 {
@@ -60,6 +68,11 @@ static void	skip_empty_line(char **line, int fd)
 	return ;
 }
 
+/*
+ * Check map line, if it contains onyl valid char.
+ * Returns 1 on failure, 0 on success.
+ */
+
 static int	validate_map(t_engine *engine, char *line, int y)
 {
 	size_t	i;
@@ -78,6 +91,7 @@ static int	validate_map(t_engine *engine, char *line, int y)
 			//add new function to assign angle variable
 			if (engine->flags & PLAYER_FOUND)
 				return (engine->flags |= PLAYER_SET, 0);
+			//set_angel(engine, line[i]);
 			engine->player->x = i;
 			engine->player->y = y;
 			engine->flags |= PLAYER_FOUND;

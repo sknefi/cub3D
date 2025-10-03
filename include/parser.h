@@ -15,13 +15,45 @@
 
 typedef struct s_engine	t_engine;
 
+/*
+ * Main parser function. Contains all steps to parse file.
+ * Returns 1 on failure, 0 on sucess.
+ */
 int		parser(t_engine *engine, char *filename);
+
+/*
+ * Checks every lines till it gets all textures and colors requried from map.
+ * Checks engine->flags, if every config was parsed. It uses first 6 bits of flags.
+ * On error returns 1, 0 on success.
+ */
 int		process_config(t_engine *engine, int fd);
+
+/*
+ * Process map, after skipping empty lines after last config line.
+ * Use strucutre to keep all variables.
+ * Returns 1 on failure, 0 on sucess.
+ */
 int		process_map(t_engine *engine, int fd);
+
+/*
+ * Ckeck map with DFS. Also assign width of map.
+ * Returns 1 on failure, 0 on sucess.
+ */
 bool	check_map(t_engine *engine);
 
 // Extract functions
+
+/*
+ * Save texture path to line, skipping whitespaces characters, and saving
+ * it to engine structure.
+ * Returns 1 on failure, 0 on sucess.
+ */
 int		extract_texture(t_engine *engine, char *line, char *dir);
+
+/*
+ * Save color RGB, value between 0 and 255, and save it.
+ * Returns 1 on failure, 0 on sucess.
+ */
 int		extract_colors(t_engine *engine, char *line, char **id, size_t i);
 
 // Utils

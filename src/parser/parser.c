@@ -21,6 +21,11 @@ int	parser(t_engine *engine, char *filename)
 	return (0);
 }
 
+/*
+ * Function checks for file extension (.cub).
+ * Returns non-zero value on failure, 0 on success.
+ */
+
 static int	check_extension(char *filename)
 {
 	size_t	len;

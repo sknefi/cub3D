@@ -5,12 +5,6 @@ static int	process_line(t_engine *engine, char *line);
 static int	determine_cardinal_point(t_engine *engine, char *line, char **dir);
 static int	check_set(t_engine *engine, char *line);
 
-/*
- * Checks every lines till it gets all textures and colors requried from map.
- * Checks engine->flags, first 6 bits.
- * On error returns 1, 0 on success.
- */
-
 int	process_config(t_engine *engine, int fd)
 {
 	char	*line;
@@ -81,6 +75,12 @@ static int	process_line(t_engine *engine, char *line)
 	free(storage.tmp);
 	return (0);
 }
+
+/*
+ * Function that prepares structure that holds important variables
+ * for parsing config.
+ * Returns 1 on failure, 0 on success.
+ */
 
 static int	prepare_parser_values(t_parser_config *structure, char *line)
 {
