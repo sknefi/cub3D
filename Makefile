@@ -14,12 +14,18 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 # Source files
 SRC = ./src/main.c \
 	  ./src/init/init.c \
+	  ./src/player/player.c \
 	  ./src/parser/parser.c \
 	  ./src/parser/process_config.c \
-	  ./src/parser/extract_textures.c ./src/parser/extract_colors.c \
-	  ./src/parser/process_map.c ./src/parser/check_map.c\
+	  ./src/parser/extract_textures.c \
+	  ./src/parser/extract_colors.c \
+	  ./src/parser/process_map.c \
+	  ./src/parser/check_map.c \
 	  ./src/parser/parser_utils.c \
-	  ./src/cleaner/ft_error.c ./src/cleaner/clean_exit.c
+	  ./src/render/render.c \
+	  ./src/raycast/raycast.c \
+	  ./src/cleaner/ft_error.c \
+	  ./src/cleaner/clean_exit.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -8,6 +8,8 @@ typedef struct s_engine
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img[4];
+	mlx_image_t		*frame;
+	mlx_texture_t	*texture[4];
 	char			*textures[4];
 	t_rgb			*floor;
 	t_rgb			*ceiling;
@@ -33,7 +35,11 @@ typedef struct s_player
 	double	y;
 	double	dx;
 	double	dy;
-	double	angle;
+	double	plane_x;
+	double	plane_y;
+	double	move_speed;
+	double	rotation_speed;
+	char	direction;
 }	t_player;
 
 /*

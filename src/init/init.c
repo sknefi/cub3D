@@ -14,3 +14,32 @@ bool	init_engine(t_engine **engine)
 		return (false);
 	return (true);
 }
+
+void	init_player(t_engine *engine, char direction)
+{
+	engine->player->direction = direction;
+	if (direction == 'N')
+	{
+		engine->player->dx = 0;
+		engine->player->dy = -1;
+	}
+	else if (direction == 'S')
+	{
+		engine->player->dx = 0;
+		engine->player->dy = 1;
+	}
+	else if (direction == 'E')
+	{
+		engine->player->dx = 1;
+		engine->player->dy = 0;
+	}
+	else if (direction == 'W')
+	{
+		engine->player->dx = -1;
+		engine->player->dy = 0;
+	}
+	engine->player->plane_x = -engine->player->dy * 0.66;
+	engine->player->plane_y = engine->player->dx * 0.66;
+	engine->player->move_speed = 0.05;
+	engine->player->rotation_speed = 0.05;
+}
