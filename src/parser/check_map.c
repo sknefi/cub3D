@@ -1,5 +1,4 @@
 #include "../../include/cub3d.h"
-#include <stdio.h>
 
 static void	get_map_width(t_engine *engine);
 static bool	validate_map(t_engine *engine);
@@ -16,7 +15,10 @@ bool	check_map(t_engine *engine)
 	return (true);
 }
 
-// Obtain the width of map, by calculating the widest row.
+/*
+ * Obtain the width of map, by calculating the widest row.
+ * Save it in engine structure.
+ */
 
 static void	get_map_width(t_engine *engine)
 {
@@ -107,6 +109,12 @@ static bool	flags_and_stack(t_engine *engine, t_position **stack, \
 	}
 	return (true);
 }
+
+/*
+ * This fucntion checks current position on stack, if it is valid.
+ * If everything is okay, then @index checks for if flag is set.
+ * Returns 1 on error, -1 if either it is wall or flag was set and 0 on success.
+ */
 
 static int	check_current_position(t_engine *engine, t_position current, \
 	uint8_t *map_flags)

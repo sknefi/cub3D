@@ -31,6 +31,11 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	return (0);
 }
 
+/*
+ * Function determines direction of texture.
+ * Returns ERROR from enum on failure, direction from enum on success.
+ */
+
 static t_textures_dir	get_direction(char *dir)
 {
 	if (ft_strcmp(dir, "NO") == 0)
@@ -45,6 +50,11 @@ static t_textures_dir	get_direction(char *dir)
 		return (ERROR);
 }
 
+/*
+ * Check if texture file extension is .xpm.
+ * Retruns non-zero value on failure, 0 on success.
+ */
+
 static int	check_extension(char *line)
 {
 	size_t	len;
@@ -58,6 +68,10 @@ static int	check_extension(char *line)
 	}
 	return (1);
 }
+
+/*
+ * Set flag for set texture.
+ */
 
 static void	set_flag(t_engine *engine, char *dir)
 {

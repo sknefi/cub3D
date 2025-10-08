@@ -60,7 +60,9 @@ static int	extract_color(t_engine *engine, char *line, t_color_types type)
 	return (0);
 }
 
-// Checking if RGB values will owerflow
+/*
+ * Function that check RGBs.
+ */
 
 static bool	check_rgb(char **rgb)
 {
@@ -82,7 +84,10 @@ static bool	check_rgb(char **rgb)
 	return (true);
 }
 
-// Checking if has more than 3 digits
+/*
+ * Function checks if @color has less than 3 digit.
+ * Returns 1 on failure, 0 on success.
+ */
 
 static bool	check_overflow(char *color)
 {
@@ -100,7 +105,9 @@ static bool	check_overflow(char *color)
 	return (true);
 }
 
-// Saving rgb in main struct.
+/*
+ * Function saves rhb in struct.
+ */
 
 static bool	save_rgb(t_engine *engine, char **rgb, t_color_types type)
 {
