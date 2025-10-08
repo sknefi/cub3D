@@ -29,11 +29,11 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	float	dx;
-	float	dy;
-	float	angle;
+	double	x;
+	double	y;
+	double	dx;
+	double	dy;
+	double	angle;
 }	t_player;
 
 /*
