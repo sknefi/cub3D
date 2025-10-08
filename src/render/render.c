@@ -79,9 +79,9 @@ static void	process_input(t_engine *engine)
 		move_player(engine, engine->player->dx * move_speed, engine->player->dy * move_speed);
 	if (mlx_is_key_down(engine->mlx, MLX_KEY_S))
 		move_player(engine, -engine->player->dx * move_speed, -engine->player->dy * move_speed);
-	if (mlx_is_key_down(engine->mlx, MLX_KEY_A))
-		move_player(engine, perp_x * move_speed, perp_y * move_speed);
 	if (mlx_is_key_down(engine->mlx, MLX_KEY_D))
+		move_player(engine, perp_x * move_speed, perp_y * move_speed);
+	if (mlx_is_key_down(engine->mlx, MLX_KEY_A))
 		move_player(engine, -perp_x * move_speed, -perp_y * move_speed);
 	if (mlx_is_key_down(engine->mlx, MLX_KEY_LEFT))
 		rotate_player(engine->player, -rot_speed);
