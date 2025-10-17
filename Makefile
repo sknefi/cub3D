@@ -15,6 +15,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 SRC = ./src/main.c \
 	  ./src/init/init.c \
 	  ./src/player/player.c \
+	  ./src/player/player_movement.c \
 	  ./src/parser/parser.c \
 	  ./src/parser/process_config.c \
 	  ./src/parser/extract_textures.c \

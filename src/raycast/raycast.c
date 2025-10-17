@@ -1,45 +1,5 @@
 #include "../../include/cub3d.h"
 
-typedef struct s_ray
-{
-	double	camera_x;
-	double	dir_x;
-	double	dir_y;
-	int		map_x;
-	int		map_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-	double	distance;
-}	t_ray;
-
-static void		init_ray(t_ray *ray, t_engine *engine, int x);
-static bool		trace_ray(t_ray *ray, t_engine *engine);
-static void		draw_column(t_engine *engine, int x, t_ray *ray);
-static char		get_tile(t_engine *engine, int x, int y);
-static uint32_t	get_wall_color(t_ray *ray);
-
-void	raycast_scene(t_engine *engine)
-{
-	t_ray	ray;
-	int		x;
-
-	if (!engine || !engine->frame)
-		return ;
-	x = 0;
-	while (x < WIN_W)
-	{
-		init_ray(&ray, engine, x);
-		if (trace_ray(&ray, engine))
-			draw_column(engine, x, &ray);
-		x++;
-	}
-}
-
 static void	init_ray(t_ray *ray, t_engine *engine, int x)
 {
 	ray->camera_x = 2.0 * x / (double)WIN_W - 1.0;
@@ -71,10 +31,22 @@ static void	init_ray(t_ray *ray, t_engine *engine, int x)
 	}
 }
 
+static char	get_tile(t_engine *engine, int x, int y)
+{
+	size_t	len;
+
+	if (y < 0 || y >= (int)engine->map->height)
+		return (' ');
+	len = ft_strlen(engine->map->map[y]);
+	if (x < 0 || x >= (int)len)
+		return (' ');
+	return (engine->map->map[y][x]);
+}
+
 static bool	trace_ray(t_ray *ray, t_engine *engine)
 {
-	char	tile;
 	int		keep_going;
+	char	tile;
 
 	keep_going = 1;
 	while (keep_going)
@@ -104,35 +76,6 @@ static bool	trace_ray(t_ray *ray, t_engine *engine)
 	if (ray->distance <= 0.0001)
 		ray->distance = 0.0001;
 	return (true);
-}
-
-static void	draw_column(t_engine *engine, int x, t_ray *ray)
-{
-	int			line_height;
-	int			draw_start;
-	int			draw_end;
-	int			y;
-	uint32_t	color;
-	uint32_t	ceiling;
-	uint32_t	floor;
-
-	line_height = (int)(WIN_H / ray->distance);
-	draw_start = -line_height / 2 + WIN_H / 2;
-	if (draw_start < 0)
-		draw_start = 0;
-	draw_end = line_height / 2 + WIN_H / 2;
-	if (draw_end >= WIN_H)
-		draw_end = WIN_H - 1;
-	ceiling = get_ceiling_color(engine);
-	floor = get_floor_color(engine);
-	y = 0;
-	while (y < draw_start)
-		mlx_put_pixel(engine->frame, x, y++, ceiling);
-	color = get_wall_color(ray);
-	while (y <= draw_end)
-		mlx_put_pixel(engine->frame, x, y++, color);
-	while (y < WIN_H)
-		mlx_put_pixel(engine->frame, x, y++, floor);
 }
 
 static uint32_t	get_wall_color(t_ray *ray)
@@ -174,14 +117,48 @@ static uint32_t	get_wall_color(t_ray *ray)
 	return ((uint32_t)r << 24 | (uint32_t)g << 16 | (uint32_t)b << 8 | 0xFF);
 }
 
-static char	get_tile(t_engine *engine, int x, int y)
+static void	draw_column(t_engine *engine, int x, t_ray *ray)
 {
-	size_t	len;
+	int			y;
+	int			draw_end;
+	int			draw_start;
+	int			line_height;
+	uint32_t	color;
+	uint32_t	floor;
+	uint32_t	ceiling;
 
-	if (y < 0 || y >= (int)engine->map->height)
-		return (' ');
-	len = ft_strlen(engine->map->map[y]);
-	if (x < 0 || x >= (int)len)
-		return (' ');
-	return (engine->map->map[y][x]);
+	line_height = (int)(WIN_H / ray->distance);
+	draw_start = -line_height / 2 + WIN_H / 2;
+	if (draw_start < 0)
+		draw_start = 0;
+	draw_end = line_height / 2 + WIN_H / 2;
+	if (draw_end >= WIN_H)
+		draw_end = WIN_H - 1;
+	ceiling = get_ceiling_color(engine);
+	floor = get_floor_color(engine);
+	y = 0;
+	while (y < draw_start)
+		mlx_put_pixel(engine->frame, x, y++, ceiling);
+	color = get_wall_color(ray);
+	while (y <= draw_end)
+		mlx_put_pixel(engine->frame, x, y++, color);
+	while (y < WIN_H)
+		mlx_put_pixel(engine->frame, x, y++, floor);
+}
+
+void	raycast_scene(t_engine *engine)
+{
+	int		x;
+	t_ray	ray;
+
+	if (!engine || !engine->frame)
+		return ;
+	x = 0;
+	while (x < WIN_W)
+	{
+		init_ray(&ray, engine, x);
+		if (trace_ray(&ray, engine))
+			draw_column(engine, x, &ray);
+		x++;
+	}
 }
