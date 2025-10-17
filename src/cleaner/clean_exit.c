@@ -2,6 +2,8 @@
 
 void	free_struct(t_engine *engine)
 {
+	if (!engine)
+		return ;
 	if (engine->mlx)
 	{
 		if (engine->frame)
@@ -33,6 +35,5 @@ void	free_struct(t_engine *engine)
 		if (engine->textures[i])
 			free(engine->textures[i]);
 	}
-	if (engine)
-		free(engine);
+	free(engine);
 }

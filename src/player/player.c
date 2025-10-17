@@ -27,8 +27,8 @@ static void	init_player(t_engine *engine, char direction)
 	}
 	engine->player->plane_x = -engine->player->dy * 0.66;
 	engine->player->plane_y = engine->player->dx * 0.66;
-	engine->player->move_speed = 0.05;
-	engine->player->rotation_speed = 0.05;
+	engine->player->move_speed = 0.02;
+	engine->player->rotation_speed = 0.02;
 }
 
 bool	create_player(t_engine *engine)

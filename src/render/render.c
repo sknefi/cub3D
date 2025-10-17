@@ -52,13 +52,13 @@ bool	start_game(t_engine *engine)
 		return (false);
 	engine->frame = mlx_new_image(engine->mlx, WIN_W, WIN_H);
 	if (!engine->frame)
-		return (mlx_terminate(engine->mlx), engine->mlx = NULL, false);
+		return (false); // (mlx_terminate(engine->mlx), engine->mlx = NULL, false);
 	if (mlx_image_to_window(engine->mlx, engine->frame, 0, 0) < 0)
 	{
-		mlx_delete_image(engine->mlx, engine->frame);
-		engine->frame = NULL;
-		mlx_terminate(engine->mlx);
-		engine->mlx = NULL;
+		// mlx_delete_image(engine->mlx, engine->frame);
+		// engine->frame = NULL;
+		// mlx_terminate(engine->mlx);
+		// engine->mlx = NULL;
 		return (false);
 	}
 	mlx_loop_hook(engine->mlx, render_loop, engine);
