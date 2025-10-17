@@ -48,8 +48,6 @@ bool	create_player(t_engine *engine)
 			tile = engine->map->map[y][x];
 			if (ft_strchr("NESW", tile))
 			{
-				engine->player->x = (double)x + 0.5;
-				engine->player->y = (double)y + 0.5;
 				init_player(engine, tile);
 				engine->map->map[y][x] = '0';
 				return (true);
