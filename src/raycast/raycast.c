@@ -123,9 +123,9 @@ static void	draw_column(t_engine *engine, int x, t_ray *ray)
 	int			draw_end;
 	int			draw_start;
 	int			line_height;
-	uint32_t	color;
-	uint32_t	floor;
-	uint32_t	ceiling;
+	uint32_t	wall_color;
+	uint32_t	floor_color;
+	uint32_t	ceiling_color;
 
 	line_height = (int)(WIN_H / ray->distance);
 	draw_start = -line_height / 2 + WIN_H / 2;
@@ -134,16 +134,16 @@ static void	draw_column(t_engine *engine, int x, t_ray *ray)
 	draw_end = line_height / 2 + WIN_H / 2;
 	if (draw_end >= WIN_H)
 		draw_end = WIN_H - 1;
-	ceiling = get_ceiling_color(engine);
-	floor = get_floor_color(engine);
+	ceiling_color = get_ceiling_color(engine);
+	floor_color = get_floor_color(engine);
 	y = 0;
 	while (y < draw_start)
-		mlx_put_pixel(engine->frame, x, y++, ceiling);
-	color = get_wall_color(ray);
+		mlx_put_pixel(engine->frame, x, y++, ceiling_color);
+	wall_color = get_wall_color(ray);
 	while (y <= draw_end)
-		mlx_put_pixel(engine->frame, x, y++, color);
+		mlx_put_pixel(engine->frame, x, y++, wall_color);
 	while (y < WIN_H)
-		mlx_put_pixel(engine->frame, x, y++, floor);
+		mlx_put_pixel(engine->frame, x, y++, floor_color);
 }
 
 void	raycast_scene(t_engine *engine)
