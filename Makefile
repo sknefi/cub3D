@@ -24,6 +24,7 @@ SRC = ./src/main.c \
 	  ./src/parser/check_map.c \
 	  ./src/parser/parser_utils.c \
 	  ./src/render/render.c \
+	  ./src/render/render_utils.c \
 	  ./src/raycast/raycast.c \
 	  ./src/cleaner/ft_error.c \
 	  ./src/cleaner/clean_exit.c
