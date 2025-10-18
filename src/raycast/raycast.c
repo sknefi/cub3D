@@ -45,11 +45,9 @@ static char	get_tile(t_engine *engine, int x, int y)
 
 static bool	trace_ray(t_ray *ray, t_engine *engine)
 {
-	int		keep_going;
 	char	tile;
 
-	keep_going = 1;
-	while (keep_going)
+	while (1)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -65,7 +63,7 @@ static bool	trace_ray(t_ray *ray, t_engine *engine)
 		}
 		tile = get_tile(engine, ray->map_x, ray->map_y);
 		if (tile == '1')
-			keep_going = 0;
+			break ;
 		else if (tile == ' ')
 			return (false);
 	}
@@ -80,41 +78,18 @@ static bool	trace_ray(t_ray *ray, t_engine *engine)
 
 static uint32_t	get_wall_color(t_ray *ray)
 {
-	uint8_t	r;
-	uint8_t	g;
-	uint8_t	b;
+	t_rgb	wall_color;
 
-	if (ray->side == 0 && ray->step_x > 0)
-	{
-		r = 180;
-		g = 60;
-		b = 60;
-	}
-	else if (ray->side == 0 && ray->step_x < 0)
-	{
-		r = 60;
-		g = 180;
-		b = 60;
-	}
+	wall_color = (t_rgb){180, 60, 60};
+	if (ray->side == 0 && ray->step_x < 0)
+		wall_color = (t_rgb){60, 180, 60};
 	else if (ray->side == 1 && ray->step_y > 0)
-	{
-		r = 60;
-		g = 60;
-		b = 180;
-	}
+		wall_color = (t_rgb){60, 60, 180};
 	else
-	{
-		r = 180;
-		g = 180;
-		b = 60;
-	}
+		wall_color = (t_rgb){180, 180, 60};
 	if (ray->side == 1)
-	{
-		r /= 2;
-		g /= 2;
-		b /= 2;
-	}
-	return ((uint32_t)r << 24 | (uint32_t)g << 16 | (uint32_t)b << 8 | 0xFF);
+		wall_color = (t_rgb){wall_color.r / 2, wall_color.g / 2, wall_color.b / 2};
+	return (rgba_from_rgb(&wall_color));
 }
 
 static void	draw_column(t_engine *engine, int x, t_ray *ray)
