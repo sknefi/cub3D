@@ -76,11 +76,11 @@ static int	check_extension(char *line)
 static void	set_flag(t_engine *engine, char *dir)
 {
 	if (ft_strcmp(dir, "NO") == 0)
-		engine->flags |= TEXTURE_NO;
+		engine->flags |= (1 << 0);
 	else if (ft_strcmp(dir, "EA") == 0)
-		engine->flags |= TEXTURE_EA;
+		engine->flags |= (1 << 1);
 	else if (ft_strcmp(dir, "SO") == 0)
-		engine->flags |= TEXTURE_SO;
+		engine->flags |= (1 << 2);
 	else if (ft_strcmp(dir, "WE") == 0)
-		engine->flags |= TEXTURE_WE;
+		engine->flags |= (1 << 3);
 }

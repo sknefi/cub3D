@@ -20,11 +20,14 @@ int	process_config(t_engine *engine, int fd)
 		{
 			length = ft_strlen(line);
 			trim_new_line(&line, length);
-			if ((engine->flags & ALL_SET) != ALL_SET)
+			if ((engine->flags & (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 \
+				| 1 << 5)) != (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 \
+				| 1 << 5))
 				exit_status = check_set(engine, line);
 		}
 		free(line);
-		if ((engine->flags & ALL_SET) == ALL_SET)
+		if ((engine->flags & (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | \
+			1 << 5)) == (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5))
 			break ;
 		line = get_next_line(fd);
 	}
@@ -37,7 +40,9 @@ static int	check_set(t_engine *engine, char *line)
 	int	exit_status;
 
 	exit_status = 1;
-	if ((engine->flags & ALL_SET) != ALL_SET)
+	if ((engine->flags & (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 \
+		| 1 << 5)) != (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 \
+			| 1 << 5))
 		exit_status = process_line(engine, line);
 	return (exit_status);
 }
@@ -105,31 +110,31 @@ static int	determine_cardinal_point(t_engine *engine, char *line, char **dir) //
 	exit_status = 1;
 	if (ft_strcmp(*dir, "NO") == 0)
 	{
-		if (engine->flags & TEXTURE_NO)
+		if (engine->flags & (1 << 0))
 			return (1);
 		exit_status = extract_texture(engine, line, "NO");
-		engine->flags |= TEXTURE_NO;
+		engine->flags |= (1 << 0);
 	}
 	else if (ft_strcmp(*dir, "EA") == 0)
 	{
-		if (engine->flags & TEXTURE_EA)
+		if (engine->flags & (1 << 1))
 			return (1);
 		exit_status = extract_texture(engine, line, "EA");
-		engine->flags |= TEXTURE_EA;
+		engine->flags |= (1 << 1);
 	}
 	else if (ft_strcmp(*dir, "SO") == 0)
 	{
-		if (engine->flags & TEXTURE_SO)
+		if (engine->flags & (1 << 2))
 			return (1);
 		exit_status = extract_texture(engine, line, "SO");
-		engine->flags |= TEXTURE_SO;
+		engine->flags |= (1 << 2);
 	}
 	else if (ft_strcmp(*dir, "WE") == 0)
 	{
-		if (engine->flags & TEXTURE_WE)
+		if (engine->flags & (1 << 3))
 			return (1);
 		exit_status = extract_texture(engine, line, "WE");
-		engine->flags |= TEXTURE_WE;
+		engine->flags |= (1 << 3);
 	}
 	dir = NULL;
 	return (exit_status);
