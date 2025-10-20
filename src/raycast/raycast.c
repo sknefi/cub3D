@@ -94,62 +94,6 @@ static uint32_t	get_wall_color(t_ray *ray)
 	return (rgba_from_rgb(&wall_color));
 }
 
-// static uint32_t	get_texture(t_engine *engine, t_ray *ray, int y, int line_height)
-// {
-// 	int				tex_num;
-// 	double			wall_x;
-// 	mlx_texture_t	*tex;
-// 	int				tex_x;
-// 	int				tex_y;
-// 	double			step;
-// 	double			tex_pos;
-// 	uint8_t			*pixel;
-// 	uint32_t		color;
-
-// 	if (ray->side == 0)
-// 		tex_num = (ray->step_x > 0) ? WE : EA;
-// 	else
-// 		tex_num = (ray->step_y > 0) ? SO : NO;
-// 	for (int i = 0; i < 4; i++)
-// 	{
-// 		printf("Texture %d: %s\n", i, engine->textures[i]);
-// 	}
-
-// 	if (!engine->texture[tex_num])
-// 		return (get_wall_color(ray));  // Fallback to solid color if texture missing
-
-// 	wall_x = (ray->side == 0)
-// 		? engine->player->y + ray->distance * ray->dir_y
-// 		: engine->player->x + ray->distance * ray->dir_x;
-// 	wall_x -= floor(wall_x);
-
-// 	tex = engine->texture[tex_num];
-// 	tex_x = (int)(wall_x * tex->width);
-// 	if ((ray->side == 0 && ray->step_x < 0) ||
-// 		(ray->side == 1 && ray->step_y > 0))
-// 		tex_x = tex->width - tex_x - 1;
-
-// 	step = tex->height / (double)line_height;
-// 	tex_pos = (y - WIN_H / 2 + line_height / 2) * step;
-// 	tex_y = (int)tex_pos & (tex->height - 1);
-
-// 	pixel = &tex->pixels[(tex_y * tex->width + tex_x) * tex->bytes_per_pixel];
-// 	color = (pixel[0] << 24) | (pixel[1] << 16) | (pixel[2] << 8) | pixel[3];
-
-// 	if (ray->side == 1)
-// 	{
-// 		uint8_t r = (color >> 24) & 0xFF;
-// 		uint8_t g = (color >> 16) & 0xFF;
-// 		uint8_t b = (color >> 8) & 0xFF;
-// 		uint8_t a = color & 0xFF;
-// 		r /= 2;
-// 		g /= 2;
-// 		b /= 2;
-// 		color = (r << 24) | (g << 16) | (b << 8) | a;
-// 	}
-// 	return (color);
-// }
-
 static void	draw_column(t_engine *engine, int x, t_ray *ray)
 {
 	int			y;
@@ -173,13 +117,9 @@ static void	draw_column(t_engine *engine, int x, t_ray *ray)
 	while (y < draw_start)
 		mlx_put_pixel(engine->frame, x, y++, ceiling_color);	
 	wall_texture = get_wall_color(ray);
+	// TODO draw texture
 	while (y <= draw_end)
 		mlx_put_pixel(engine->frame, x, y++, wall_texture);
-	// while (y <= draw_end)
-	// {
-	// 	wall_texture = get_texture(engine, ray, y, line_height);
-	// 	mlx_put_pixel(engine->frame, x, y++, wall_texture);
-	// }
 	while (y < WIN_H)
 		mlx_put_pixel(engine->frame, x, y++, floor_color);
 }

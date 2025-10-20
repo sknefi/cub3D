@@ -51,7 +51,7 @@ static t_textures_dir	get_direction(char *dir)
 }
 
 /*
- * Check if texture file extension is .xpm.
+ * Check if texture file extension is .png.
  * Retruns non-zero value on failure, 0 on success.
  */
 
@@ -64,7 +64,7 @@ static int	check_extension(char *line)
 	if (len >= 5)
 	{
 		extension = ft_strrchr(line, '.');
-		return (ft_strcmp(extension, ".xpm"));
+		return (ft_strcmp(extension, ".png"));
 	}
 	return (1);
 }
