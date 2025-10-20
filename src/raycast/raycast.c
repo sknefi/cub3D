@@ -78,20 +78,60 @@ static bool	trace_ray(t_ray *ray, t_engine *engine)
 	return (true);
 }
 
-static uint32_t	get_wall_color(t_ray *ray)
+static mlx_texture_t	*get_texture_for_ray(t_engine *engine, t_ray *ray)
 {
-	t_rgb	wall_color;
+	t_textures_dir	index;
 
-	wall_color = (t_rgb){180, 60, 60};
-	if (ray->side == 0 && ray->step_x < 0)
-		wall_color = (t_rgb){60, 180, 60};
-	else if (ray->side == 1 && ray->step_y > 0)
-		wall_color = (t_rgb){60, 60, 180};
+	if (!engine)
+		return (NULL);
+	if (ray->side == 0)
+	{
+		if (ray->step_x > 0)
+			index = WE;
+		else
+			index = EA;
+	}
 	else
-		wall_color = (t_rgb){180, 180, 60};
+	{
+		if (ray->step_y > 0)
+			index = NO;
+		else
+			index = SO;
+	}
+	if (!engine->texture[index] && engine->textures[index])
+		engine->texture[index] = mlx_load_png(engine->textures[index]);
+	return (engine->texture[index]);
+}
+
+static uint32_t	get_wall_color(t_ray *ray, mlx_texture_t *texture,
+						int tex_x, int tex_y)
+{
+	uint8_t	r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
+	uint8_t	*pixel;
+
+	if (!texture || !texture->pixels || tex_x < 0 || tex_y < 0
+		|| tex_x >= (int)texture->width || tex_y >= (int)texture->height)
+	{
+		t_rgb	fallback;
+
+		fallback = (t_rgb){120, 40, 40};
+		return (rgba_from_rgb(&fallback));
+	}
+	pixel = &texture->pixels[(tex_y * texture->width + tex_x) * 4];
+	r = pixel[0];
+	g = pixel[1];
+	b = pixel[2];
+	a = pixel[3];
 	if (ray->side == 1)
-		wall_color = (t_rgb){wall_color.r / 2, wall_color.g / 2, wall_color.b / 2};
-	return (rgba_from_rgb(&wall_color));
+	{
+		r /= 2;
+		g /= 2;
+		b /= 2;
+	}
+	return ((uint32_t)r << 24 | (uint32_t)g << 16 | (uint32_t)b << 8 | a);
 }
 
 static void	draw_column(t_engine *engine, int x, t_ray *ray)
@@ -103,8 +143,16 @@ static void	draw_column(t_engine *engine, int x, t_ray *ray)
 	uint32_t	floor_color;
 	uint32_t	wall_texture;
 	uint32_t	ceiling_color;
+	mlx_texture_t	*texture;
+	double		wall_x;
+	int			tex_x;
+	double		tex_step;
+	double		tex_pos;
+	int			tex_y;
 
 	line_height = (int)(WIN_H / ray->distance);
+	if (line_height <= 0)
+		line_height = 1;
 	draw_start = -line_height / 2 + WIN_H / 2;
 	if (draw_start < 0)
 		draw_start = 0;
@@ -115,11 +163,52 @@ static void	draw_column(t_engine *engine, int x, t_ray *ray)
 	floor_color = get_floor_color(engine);
 	y = 0;
 	while (y < draw_start)
-		mlx_put_pixel(engine->frame, x, y++, ceiling_color);	
-	wall_texture = get_wall_color(ray);
-	// TODO draw texture
+		mlx_put_pixel(engine->frame, x, y++, ceiling_color);
+	texture = get_texture_for_ray(engine, ray);
+	if (ray->side == 0)
+		wall_x = engine->player->y + ray->distance * ray->dir_y;
+	else
+		wall_x = engine->player->x + ray->distance * ray->dir_x;
+	wall_x -= floor(wall_x);
+	if (texture && texture->width)
+	{
+		tex_x = (int)(wall_x * (double)texture->width);
+		if (tex_x < 0)
+			tex_x = 0;
+		if (tex_x >= (int)texture->width)
+			tex_x = texture->width - 1;
+		if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1 && ray->dir_y < 0))
+			tex_x = texture->width - tex_x - 1;
+		tex_step = (double)texture->height / line_height;
+		tex_pos = (draw_start - WIN_H / 2 + line_height / 2) * tex_step;
+	}
+	else
+	{
+		tex_step = 0.0;
+		tex_pos = 0.0;
+		tex_x = 0;
+	}
 	while (y <= draw_end)
+	{
+		if (texture && texture->height)
+		{
+			tex_y = (int)tex_pos;
+			if (tex_y < 0)
+				tex_y = 0;
+			if (tex_y >= (int)texture->height)
+				tex_y = texture->height - 1;
+			wall_texture = get_wall_color(ray, texture, tex_x, tex_y);
+			tex_pos += tex_step;
+		}
+		else
+		{
+			t_rgb	fallback;
+
+			fallback = (t_rgb){160, 160, 160};
+			wall_texture = rgba_from_rgb(&fallback);
+		}
 		mlx_put_pixel(engine->frame, x, y++, wall_texture);
+	}
 	while (y < WIN_H)
 		mlx_put_pixel(engine->frame, x, y++, floor_color);
 }
