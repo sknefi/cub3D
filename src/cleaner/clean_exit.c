@@ -2,8 +2,22 @@
 
 void	free_struct(t_engine *engine)
 {
+	if (!engine)
+		return ;
 	if (engine->mlx)
-		free(engine->mlx);
+	{
+		if (engine->frame)
+			mlx_delete_image(engine->mlx, engine->frame);
+		for (int i = 0; i < 4; i++)
+		{
+			if (engine->img[i])
+				mlx_delete_image(engine->mlx, engine->img[i]);
+			if (engine->texture[i])
+				mlx_delete_texture(engine->texture[i]);
+		}
+		mlx_terminate(engine->mlx);
+		engine->mlx = NULL;
+	}
 	if (engine->ceiling)
 		free(engine->ceiling);
 	if (engine->floor)
@@ -21,6 +35,5 @@ void	free_struct(t_engine *engine)
 		if (engine->textures[i])
 			free(engine->textures[i]);
 	}
-	if (engine)
-		free(engine);
+	free(engine);
 }
