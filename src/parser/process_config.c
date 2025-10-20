@@ -2,7 +2,7 @@
 
 static int	prepare_parser_values(t_parser_config *structure, char *line);
 static int	process_line(t_engine *engine, char *line);
-static int	determine_cardinal_point(t_engine *engine, char *line, char **dir);
+static int	determine_direction(t_engine *engine, char *line, char **dir);
 static int	check_set(t_engine *engine, char *line);
 
 int	process_config(t_engine *engine, int fd)
@@ -72,7 +72,7 @@ static int	process_line(t_engine *engine, char *line)
 		if (storage.i == 2)
 		{
 			storage.tmp[storage.i] = '\0';
-			if (determine_cardinal_point(engine, storage.ptr, &storage.tmp))
+			if (determine_direction(engine, storage.ptr, &storage.tmp))
 				return (free(storage.tmp), 1);
 			break ;
 		}
@@ -103,39 +103,19 @@ static int	prepare_parser_values(t_parser_config *structure, char *line)
  * Returns 0 on success, 1 on fail.
  */
 
-static int	determine_cardinal_point(t_engine *engine, char *line, char **dir) //TODO more than 25 lines, maybe do hash tables?
+static int	determine_direction(t_engine *engine, char *line, char **dir)
 {
 	int	exit_status;
 
 	exit_status = 1;
 	if (ft_strcmp(*dir, "NO") == 0)
-	{
-		if (engine->flags & (1 << 0))
-			return (1);
 		exit_status = extract_texture(engine, line, "NO");
-		engine->flags |= (1 << 0);
-	}
 	else if (ft_strcmp(*dir, "EA") == 0)
-	{
-		if (engine->flags & (1 << 1))
-			return (1);
 		exit_status = extract_texture(engine, line, "EA");
-		engine->flags |= (1 << 1);
-	}
 	else if (ft_strcmp(*dir, "SO") == 0)
-	{
-		if (engine->flags & (1 << 2))
-			return (1);
 		exit_status = extract_texture(engine, line, "SO");
-		engine->flags |= (1 << 2);
-	}
 	else if (ft_strcmp(*dir, "WE") == 0)
-	{
-		if (engine->flags & (1 << 3))
-			return (1);
 		exit_status = extract_texture(engine, line, "WE");
-		engine->flags |= (1 << 3);
-	}
 	dir = NULL;
 	return (exit_status);
 }

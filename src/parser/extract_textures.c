@@ -1,8 +1,9 @@
 #include "../../include/cub3d.h"
 
 static t_textures_dir	get_direction(char *dir);
-static int	check_extension(char *line);
-static void	set_flag(t_engine *engine, char *dir);
+static int				check_flag(t_engine *engine, char *dir);
+static int				check_extension(char *line);
+static void				set_flag(t_engine *engine, char *dir);
 
 int	extract_texture(t_engine *engine, char *line, char *dir)
 {
@@ -14,6 +15,8 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	j = 0;
 	direction = get_direction(dir);
 	if (ERROR == direction)
+		return (1);
+	if (check_flag(engine, dir))
 		return (1);
 	while (line[i])
 	{
@@ -50,6 +53,31 @@ static t_textures_dir	get_direction(char *dir)
 		return (ERROR);
 }
 
+static int	check_flag(t_engine *engine, char *dir)
+{
+	if (ft_strcmp(dir, "NO") == 0)
+	{
+		if (engine->flags & (1 << 0))
+			return (1);
+	}
+	else if (ft_strcmp(dir, "EA") == 0)
+	{
+		if (engine->flags & (1 << 1))
+			return (1);
+	}
+	else if (ft_strcmp(dir, "SO") == 0)
+	{
+		if (engine->flags & (1 << 2))
+			return (1);
+	}
+	else if (ft_strcmp(dir, "WE") == 0)
+	{
+		if (engine->flags & (1 << 3))
+			return (1);
+	}
+	return (0);
+}
+
 /*
  * Check if texture file extension is .xpm.
  * Retruns non-zero value on failure, 0 on success.
@@ -64,7 +92,7 @@ static int	check_extension(char *line)
 	if (len >= 5)
 	{
 		extension = ft_strrchr(line, '.');
-		return (ft_strcmp(extension, ".xpm"));
+		return (ft_strcmp(extension, ".png"));
 	}
 	return (1);
 }
