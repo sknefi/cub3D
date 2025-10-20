@@ -26,8 +26,6 @@
 
 bool	init_engine(t_engine **engine);
 void	move_player(t_engine *engine, double move_x, double move_y);
-uint32_t	get_ceiling_color(t_engine *engine);
-uint32_t	get_floor_color(t_engine *engine);
 
 // Cleaner
 void	free_struct(t_engine *engine);

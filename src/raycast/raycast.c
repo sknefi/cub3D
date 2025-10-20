@@ -152,8 +152,8 @@ static void	draw_column(t_engine *engine, int x, t_ray *ray)
 	draw_end = line_height / 2 + WIN_H / 2;
 	if (draw_end >= WIN_H)
 		draw_end = WIN_H - 1;
-	ceiling_color = get_ceiling_color(engine);
-	floor_color = get_floor_color(engine);
+	ceiling_color = rgba_from_rgb(engine->ceiling);
+	floor_color = rgba_from_rgb(engine->floor);
 	y = 0;
 	while (y < draw_start)
 		mlx_put_pixel(engine->frame, x, y++, ceiling_color);
