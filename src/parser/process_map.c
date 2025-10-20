@@ -30,6 +30,8 @@ int	process_map(t_engine *engine, int fd)
 	if (!engine->map->map)
 		return (free(tmp), 1);
 	free(tmp);
+	if (!create_player(engine))
+		return (1);
 	return (0);
 }
 

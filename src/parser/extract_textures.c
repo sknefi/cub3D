@@ -79,7 +79,7 @@ static int	check_flag(t_engine *engine, char *dir)
 }
 
 /*
- * Check if texture file extension is .xpm.
+ * Check if texture file extension is .png.
  * Retruns non-zero value on failure, 0 on success.
  */
 
