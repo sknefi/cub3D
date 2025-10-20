@@ -88,7 +88,7 @@ typedef struct s_position
 typedef struct	s_parser
 {
 	char	*line;
-	bool	error;
+	bool	err;
 	int		y;
 }	t_parser;
 
@@ -101,6 +101,12 @@ typedef struct	s_parser_config
 	char	*tmp;
 	int		i;
 }	t_parser_config;
+
+typedef struct s_check_map_utils
+{
+	int	i;
+	int	tmp;
+}	t_check_map_utils;
 
 /**
  * This structure contains all information needed for one ray in

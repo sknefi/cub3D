@@ -2,7 +2,7 @@
 
 static int	prepare_parser_values(t_parser_config *structure, char *line);
 static int	process_line(t_engine *engine, char *line);
-static int	determine_cardinal_point(t_engine *engine, char *line, char **dir);
+static int	determine_direction(t_engine *engine, char *line, char **dir);
 static int	check_set(t_engine *engine, char *line);
 
 int	process_config(t_engine *engine, int fd)
@@ -20,11 +20,14 @@ int	process_config(t_engine *engine, int fd)
 		{
 			length = ft_strlen(line);
 			trim_new_line(&line, length);
-			if ((engine->flags & ALL_SET) != ALL_SET)
+			if ((engine->flags & (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 \
+				| 1 << 5)) != (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 \
+				| 1 << 5))
 				exit_status = check_set(engine, line);
 		}
 		free(line);
-		if ((engine->flags & ALL_SET) == ALL_SET)
+		if ((engine->flags & (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | \
+			1 << 5)) == (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 1 << 5))
 			break ;
 		line = get_next_line(fd);
 	}
@@ -37,7 +40,9 @@ static int	check_set(t_engine *engine, char *line)
 	int	exit_status;
 
 	exit_status = 1;
-	if ((engine->flags & ALL_SET) != ALL_SET)
+	if ((engine->flags & (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 \
+		| 1 << 5)) != (1 << 0 | 1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 \
+			| 1 << 5))
 		exit_status = process_line(engine, line);
 	return (exit_status);
 }
@@ -67,7 +72,7 @@ static int	process_line(t_engine *engine, char *line)
 		if (storage.i == 2)
 		{
 			storage.tmp[storage.i] = '\0';
-			if (determine_cardinal_point(engine, storage.ptr, &storage.tmp))
+			if (determine_direction(engine, storage.ptr, &storage.tmp))
 				return (free(storage.tmp), 1);
 			break ;
 		}
@@ -98,39 +103,19 @@ static int	prepare_parser_values(t_parser_config *structure, char *line)
  * Returns 0 on success, 1 on fail.
  */
 
-static int	determine_cardinal_point(t_engine *engine, char *line, char **dir) //TODO more than 25 lines, maybe do hash tables?
+static int	determine_direction(t_engine *engine, char *line, char **dir)
 {
 	int	exit_status;
 
 	exit_status = 1;
 	if (ft_strcmp(*dir, "NO") == 0)
-	{
-		if (engine->flags & TEXTURE_NO)
-			return (1);
 		exit_status = extract_texture(engine, line, "NO");
-		engine->flags |= TEXTURE_NO;
-	}
 	else if (ft_strcmp(*dir, "EA") == 0)
-	{
-		if (engine->flags & TEXTURE_EA)
-			return (1);
 		exit_status = extract_texture(engine, line, "EA");
-		engine->flags |= TEXTURE_EA;
-	}
 	else if (ft_strcmp(*dir, "SO") == 0)
-	{
-		if (engine->flags & TEXTURE_SO)
-			return (1);
 		exit_status = extract_texture(engine, line, "SO");
-		engine->flags |= TEXTURE_SO;
-	}
 	else if (ft_strcmp(*dir, "WE") == 0)
-	{
-		if (engine->flags & TEXTURE_WE)
-			return (1);
 		exit_status = extract_texture(engine, line, "WE");
-		engine->flags |= TEXTURE_WE;
-	}
 	dir = NULL;
 	return (exit_status);
 }
