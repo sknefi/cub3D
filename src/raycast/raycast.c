@@ -1,5 +1,7 @@
 #include "../../include/cub3d.h"
 
+// alpha starting
+
 static void	init_ray(t_ray *ray, t_engine *engine, int x)
 {
 	ray->camera_x = 2.0 * x / (double)WIN_W - 1.0;
