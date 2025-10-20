@@ -1,6 +1,6 @@
-NO textures/test/north.xpm
-SO textures/test/south.xpm
-WE textures/test/west.xpm
+NO textures/forest2.png
+SO textures/linux_programmer.png
+WE textures/tiger1.png
 EA textures/test/
 
 F 20,20,20

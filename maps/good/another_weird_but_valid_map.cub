@@ -1,7 +1,7 @@
-NO textures/test/forbidden.xpm
-SO textures/test/south.xpm
-WE textures/test/west.xpm
-EA textures/test/east.xpm
+NO textures/forest2.png
+SO textures/linux_programmer.png
+WE textures/tiger1.png
+EA textures/windows_programmer.png
 
 F 20,20,20
 C 200,200,200
