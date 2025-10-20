@@ -1,7 +1,5 @@
 #include "../../include/cub3d.h"
 
-// alpha starting
-
 static void	init_ray(t_ray *ray, t_engine *engine, int x)
 {
 	ray->camera_x = 2.0 * x / (double)WIN_W - 1.0;
@@ -114,12 +112,7 @@ static uint32_t	get_wall_color(t_ray *ray, mlx_texture_t *texture,
 
 	if (!texture || !texture->pixels || tex_x < 0 || tex_y < 0
 		|| tex_x >= (int)texture->width || tex_y >= (int)texture->height)
-	{
-		t_rgb	fallback;
-
-		fallback = (t_rgb){120, 40, 40};
-		return (rgba_from_rgb(&fallback));
-	}
+		return (rgba_from_rgb(&((t_rgb){255, 0, 0})));
 	pixel = &texture->pixels[(tex_y * texture->width + tex_x) * 4];
 	r = pixel[0];
 	g = pixel[1];
@@ -201,12 +194,7 @@ static void	draw_column(t_engine *engine, int x, t_ray *ray)
 			tex_pos += tex_step;
 		}
 		else
-		{
-			t_rgb	fallback;
-
-			fallback = (t_rgb){160, 160, 160};
-			wall_texture = rgba_from_rgb(&fallback);
-		}
+			wall_texture = rgba_from_rgb(&(t_rgb){160, 160, 160});
 		mlx_put_pixel(engine->frame, x, y++, wall_texture);
 	}
 	while (y < WIN_H)
