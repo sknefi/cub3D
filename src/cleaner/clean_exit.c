@@ -18,8 +18,8 @@ void	free_struct(t_engine *engine)
 		free(engine->player);
 	for (int i = 0; i < 4; i++)
 	{
-		if (engine->textures[i])
-			free(engine->textures[i]);
+		if (engine->texture_path[i])
+			free(engine->texture_path[i]);
 	}
 	if (engine)
 		free(engine);

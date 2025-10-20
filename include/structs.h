@@ -8,7 +8,7 @@ typedef struct s_engine
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img[4];
-	char			*textures[4];
+	char			*texture_path[4];
 	t_rgb			*floor;
 	t_rgb			*ceiling;
 	uint8_t			flags;

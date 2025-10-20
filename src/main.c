@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 // 	printf("---------- Start of tester ----------\n");
 // 	printf("Textures from file:\n");
 // 	for (int i = 0; i < 4; i++)
-// 		printf("%s\n", engine->textures[i]);
+// 		printf("%s\n", engine->texture_path[i]);
 // 	printf("-------\n");
 // 	printf("Floor colors (in rgb fomrmat):\n");
 // 	printf("%d\n", engine->floor->r);
