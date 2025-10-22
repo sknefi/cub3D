@@ -27,7 +27,8 @@ SRC = ./src/main.c \
 	  ./src/render/render_utils.c \
 	  ./src/raycast/raycast.c \
 	  ./src/raycast/raycast_logic.c \
-	  ./src/raycast/raycast_utils.c \
+	  ./src/raycast/raycast_utils01.c \
+	  ./src/raycast/raycast_utils02.c \
 	  ./src/cleaner/ft_error.c \
 	  ./src/cleaner/clean_exit.c
 

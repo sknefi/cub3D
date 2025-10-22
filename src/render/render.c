@@ -33,7 +33,12 @@ static void	render_loop(void *param)
 	if (!engine || !engine->frame || !engine->mlx || !engine->player)
 		return ;
 	process_input(engine);
-	raycast_scene(engine);
+	if (!raycast_scene(engine))
+	{
+		free_struct(engine);
+		ft_error("Failed in raycasting scene");
+		exit(1);
+	}
 }
 
 bool	start_game(t_engine *engine)

@@ -158,3 +158,12 @@ typedef struct s_ray
 	int		side;
 	double	distance;
 }	t_ray;
+
+typedef struct s_coloumn_info
+{
+	int	y;
+	int	x;
+	int	draw_start;
+	int	draw_end;
+	int	line_height;
+}	t_coloumn_info;
