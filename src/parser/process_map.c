@@ -1,12 +1,12 @@
 #include "../../include/cub3d.h"
 
-static void	prepare_parser(t_parser *structure, int fd, char **tmp);
+static void	prepare_parser(t_parser_map *structure, int fd, char **tmp);
 static void	skip_empty_line(char **line, int fd);
 static int	validate_map(t_engine *engine, char *line, int y);
 
 int	process_map(t_engine *engine, int fd)
 {
-	t_parser	utils;
+	t_parser_map	utils;
 	char		*tmp;
 
 	prepare_parser(&utils, fd, &tmp);
@@ -30,6 +30,8 @@ int	process_map(t_engine *engine, int fd)
 	if (!engine->map->map)
 		return (free(tmp), 1);
 	free(tmp);
+	if (!create_player(engine))
+		return (1);
 	return (0);
 }
 
@@ -37,7 +39,7 @@ int	process_map(t_engine *engine, int fd)
  * Prepares strucutre that holds variables for parsing map.
  */
 
-static void	prepare_parser(t_parser *structure, int fd, char **tmp)
+static void	prepare_parser(t_parser_map *structure, int fd, char **tmp)
 {
 	structure->line = get_next_line(fd);
 	structure->err = 0;

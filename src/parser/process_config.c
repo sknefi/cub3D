@@ -54,30 +54,30 @@ static int	check_set(t_engine *engine, char *line)
 
 static int	process_line(t_engine *engine, char *line)
 {
-	t_parser_config	storage;
+	t_parser_config	utils;
 
-	if (prepare_parser_values(&storage, line))
+	if (prepare_parser_values(&utils, line))
 		return (1);
-	while (*storage.ptr)
+	while (*utils.ptr)
 	{
-		if (!ft_isspace(*storage.ptr))
-			storage.tmp[storage.i++] = *storage.ptr;
-		storage.ptr++;
-		if (storage.i == 1 && (storage.tmp[0] == 'F' || storage.tmp[0] == 'C'))
+		if (!ft_isspace(*utils.ptr))
+			utils.tmp[utils.i++] = *utils.ptr;
+		utils.ptr++;
+		if (utils.i == 1 && (utils.tmp[0] == 'F' || utils.tmp[0] == 'C'))
 		{
-			if (extract_colors(engine, storage.ptr, &storage.tmp, storage.i))
-				return (free(storage.tmp), 1);
+			if (extract_colors(engine, utils.ptr, &utils.tmp, utils.i))
+				return (free(utils.tmp), 1);
 			break ;
 		}
-		if (storage.i == 2)
+		if (utils.i == 2)
 		{
-			storage.tmp[storage.i] = '\0';
-			if (determine_direction(engine, storage.ptr, &storage.tmp))
-				return (free(storage.tmp), 1);
+			utils.tmp[utils.i] = '\0';
+			if (determine_direction(engine, utils.ptr, &utils.tmp))
+				return (free(utils.tmp), 1);
 			break ;
 		}
 	}
-	free(storage.tmp);
+	free(utils.tmp);
 	return (0);
 }
 
