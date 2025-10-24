@@ -3,7 +3,7 @@
 
 # include "stdlib.h"
 
-//  * Norminette does not like it, so I leave it here for reference.
+/* Norminette does not like it, so I leave it here for reference.
 # define TEXTURE_NO (1 << 0)
 # define TEXTURE_EA (1 << 1)
 # define TEXTURE_SO (1 << 2)

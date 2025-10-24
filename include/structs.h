@@ -86,7 +86,7 @@ typedef struct s_position
 /*
  * Used to store variables for map parsing.
  */
-typedef struct	s_process_map_utils
+typedef struct s_process_map_utils
 {
 	char	*line;
 	bool	err;
@@ -133,7 +133,8 @@ typedef struct s_check_map_utils
  * 
  * @brief Everything we need to know about one ray/screen column
  *
- * @param camera_x      Where on screen (-1.0 = left edge, 0 = center, 1.0 = right edge)
+ * @param camera_x      Where on screen (-1.0 = left edge, 0 = center,
+ * 						1.0 = right edge)
  * @param dir_x         X component of ray's direction vector
  * @param dir_y         Y component of ray's direction vector
  * @param map_x         Current X position in map grid (changes during DDA)
@@ -144,7 +145,8 @@ typedef struct s_check_map_utils
  * @param delta_dist_y  Distance between horizontal grid lines along ray
  * @param step_x        Direction to step in X (-1 for left, 1 for right)
  * @param step_y        Direction to step in Y (-1 for up, 1 for down)
- * @param side          Which wall face was hit (0: EW/vertical, 1: NS/horizontal)
+ * @param side          Which wall face was hit (0: EW/vertical,
+ * 						1: NS/horizontal)
  * @param distance      Perpendicular distance to wall (for wall height) 
  */
 typedef struct s_ray

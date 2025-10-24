@@ -85,9 +85,9 @@ mlx_texture_t	*get_texture_for_ray(t_engine *engine, t_ray *ray)
 		else
 			index = SO;
 	}
-	if (!engine->texture[index] && engine->textures[index])
+	if (!engine->texture[index] && engine->texture_path[index])
 	{
-		engine->texture[index] = mlx_load_png(engine->textures[index]);
+		engine->texture[index] = mlx_load_png(engine->texture_path[index]);
 		if (!engine->texture[index])
 			return (NULL);
 	}
