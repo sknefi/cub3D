@@ -58,7 +58,7 @@ typedef struct s_position
 /*
  * Used to store variables for map parsing.
  */
-typedef struct	s_parser
+typedef struct s_parser
 {
 	char	*line;
 	bool	err;
@@ -68,7 +68,7 @@ typedef struct	s_parser
 /*
  * Used to store variables for configuration parsing.
  */
-typedef struct	s_parser_config
+typedef struct s_parser_config
 {
 	char	*ptr;
 	char	*tmp;
@@ -80,4 +80,3 @@ typedef struct s_check_map_utils
 	int	i;
 	int	tmp;
 }	t_check_map_utils;
-
