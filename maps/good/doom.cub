@@ -1,7 +1,7 @@
-NO textures/doom/NO_and_SO.xpm
-WE textures/doom/WE.xpm
-SO textures/doom/NO_and_SO.xpm
-EA textures/doom/EA.xpm
+NO textures/forest2.png
+WE textures/tiger1.png
+SO textures/linux_programmer.png
+EA textures/windows_programmer.png
 
 F 0,32,0
 C 120,0,16

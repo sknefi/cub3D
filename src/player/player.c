@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fkarika <fkarika@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:30:51 by fkarika           #+#    #+#             */
+/*   Updated: 2025/10/24 16:30:52 by fkarika          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 #define COLLISION_MARGIN 0.2
@@ -31,14 +43,14 @@ static void	init_player(t_engine *engine, char direction)
 	engine->player->rotation_speed = 0.02;
 }
 
-bool	create_player(t_engine *engine)
+int	create_player(t_engine *engine)
 {
 	uint32_t	y;
 	uint32_t	x;
 	char		tile;
 
 	if (!engine || !engine->map || !engine->map->map)
-		return (false);
+		return (1);
 	y = 0;
 	while (engine->map->map[y])
 	{
@@ -50,11 +62,11 @@ bool	create_player(t_engine *engine)
 			{
 				init_player(engine, tile);
 				engine->map->map[y][x] = '0';
-				return (true);
+				return (0);
 			}
 			x++;
 		}
 		y++;
 	}
-	return (false);
+	return (1);
 }

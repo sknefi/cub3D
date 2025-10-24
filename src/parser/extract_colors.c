@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   extract_colors.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmateja <tmateja@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:35:30 by tmateja           #+#    #+#             */
+/*   Updated: 2025/10/24 16:35:31 by tmateja          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 static int	extract_color(t_engine *engine, char *line, t_color_types type);
@@ -13,19 +25,19 @@ int	extract_colors(t_engine *engine, char *line, char **id, size_t i)
 	(*id)[i] = '\0';
 	if (ft_strcmp(*id, "F") == 0)
 	{
-		if (engine->flags & COLOR_FLOOR)
+		if (engine->flags & (1 << 4))
 			return (1);
 		exit_status = extract_color(engine, line, FLOOR);
 		if (!exit_status)
-			engine->flags |= COLOR_FLOOR;
+			engine->flags |= (1 << 4);
 	}
 	else if (ft_strcmp(*id, "C") == 0)
 	{
-		if (engine->flags & COLOR_CEILING)
+		if (engine->flags & (1 << 5))
 			return (1);
 		exit_status = extract_color(engine, line, CEILING);
 		if (!exit_status)
-			engine->flags |= COLOR_CEILING;
+			engine->flags |= (1 << 5);
 	}
 	return (exit_status);
 }

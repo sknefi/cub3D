@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   extract_textures.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmateja <tmateja@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:35:33 by tmateja           #+#    #+#             */
+/*   Updated: 2025/10/24 16:35:34 by tmateja          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 static t_textures_dir	get_direction(char *dir);
-static int	check_extension(char *line);
-static void	set_flag(t_engine *engine, char *dir);
+static int				check_flag(t_engine *engine, char *dir);
+static int				check_extension(char *line);
+static void				set_flag(t_engine *engine, char *dir);
 
 int	extract_texture(t_engine *engine, char *line, char *dir)
 {
@@ -15,6 +28,8 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	direction = get_direction(dir);
 	if (ERROR == direction)
 		return (1);
+	if (check_flag(engine, dir))
+		return (1);
 	while (line[i])
 	{
 		if (!ft_isspace(line[i]))
@@ -24,8 +39,8 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	line[j] = '\0';
 	if (check_extension(line))
 		return (1);
-	engine->textures[direction] = ft_strdup(line);
-	if (!engine->textures[direction])
+	engine->texture_path[direction] = ft_strdup(line);
+	if (!engine->texture_path[direction])
 		return (1);
 	set_flag(engine, dir);
 	return (0);
@@ -50,8 +65,33 @@ static t_textures_dir	get_direction(char *dir)
 		return (ERROR);
 }
 
+static int	check_flag(t_engine *engine, char *dir)
+{
+	if (ft_strcmp(dir, "NO") == 0)
+	{
+		if (engine->flags & (1 << 0))
+			return (1);
+	}
+	else if (ft_strcmp(dir, "EA") == 0)
+	{
+		if (engine->flags & (1 << 1))
+			return (1);
+	}
+	else if (ft_strcmp(dir, "SO") == 0)
+	{
+		if (engine->flags & (1 << 2))
+			return (1);
+	}
+	else if (ft_strcmp(dir, "WE") == 0)
+	{
+		if (engine->flags & (1 << 3))
+			return (1);
+	}
+	return (0);
+}
+
 /*
- * Check if texture file extension is .xpm.
+ * Check if texture file extension is .png.
  * Retruns non-zero value on failure, 0 on success.
  */
 
@@ -64,7 +104,7 @@ static int	check_extension(char *line)
 	if (len >= 5)
 	{
 		extension = ft_strrchr(line, '.');
-		return (ft_strcmp(extension, ".xpm"));
+		return (ft_strcmp(extension, ".png"));
 	}
 	return (1);
 }
@@ -76,11 +116,11 @@ static int	check_extension(char *line)
 static void	set_flag(t_engine *engine, char *dir)
 {
 	if (ft_strcmp(dir, "NO") == 0)
-		engine->flags |= TEXTURE_NO;
+		engine->flags |= (1 << 0);
 	else if (ft_strcmp(dir, "EA") == 0)
-		engine->flags |= TEXTURE_EA;
+		engine->flags |= (1 << 1);
 	else if (ft_strcmp(dir, "SO") == 0)
-		engine->flags |= TEXTURE_SO;
+		engine->flags |= (1 << 2);
 	else if (ft_strcmp(dir, "WE") == 0)
-		engine->flags |= TEXTURE_WE;
+		engine->flags |= (1 << 3);
 }

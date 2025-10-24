@@ -1,23 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_exit.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmateja <tmateja@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:36:15 by tmateja           #+#    #+#             */
+/*   Updated: 2025/10/24 16:36:16 by tmateja          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
+
+static void	free_texture_path(t_engine *engine);
+static void	free_textures(t_engine *engine);
 
 void	free_struct(t_engine *engine)
 {
-	if (!engine)
-		return ;
 	if (engine->mlx)
-	{
-		if (engine->frame)
-			mlx_delete_image(engine->mlx, engine->frame);
-		for (int i = 0; i < 4; i++)
-		{
-			if (engine->img[i])
-				mlx_delete_image(engine->mlx, engine->img[i]);
-			if (engine->texture[i])
-				mlx_delete_texture(engine->texture[i]);
-		}
-		mlx_terminate(engine->mlx);
-		engine->mlx = NULL;
-	}
+		free(engine->mlx);
 	if (engine->ceiling)
 		free(engine->ceiling);
 	if (engine->floor)
@@ -30,10 +31,37 @@ void	free_struct(t_engine *engine)
 	}
 	if (engine->player)
 		free(engine->player);
-	for (int i = 0; i < 4; i++)
+	free_texture_path(engine);
+	free_textures(engine);
+	if (engine)
+		free(engine);
+}
+
+static void	free_texture_path(t_engine *engine)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
 	{
-		if (engine->textures[i])
-			free(engine->textures[i]);
+		if (engine->texture_path[i])
+			free(engine->texture_path[i]);
+		i++;
 	}
-	free(engine);
+}
+
+static void	free_textures(t_engine *engine)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (engine->texture[i])
+		{
+			mlx_delete_texture(engine->texture[i]);
+			engine->texture[i] = NULL;
+		}
+		i++;
+	}
 }

@@ -1,48 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   process_map.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmateja <tmateja@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:35:47 by tmateja           #+#    #+#             */
+/*   Updated: 2025/10/24 16:35:48 by tmateja          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
-static void	prepare_parser(t_parser *structure, int fd, char **tmp);
+static void	prepare_parser(t_parser_map *structure, int fd, char **tmp);
 static void	skip_empty_line(char **line, int fd);
 static int	validate_map(t_engine *engine, char *line, int y);
 
 int	process_map(t_engine *engine, int fd)
 {
-	t_parser	structure;
-	char		*tmp;
+	t_parser_map	utils;
+	char			*tmp;
 
-	prepare_parser(&structure, fd, &tmp);
-	skip_empty_line(&structure.line, fd);
-	while (structure.line)
+	prepare_parser(&utils, fd, &tmp);
+	skip_empty_line(&utils.line, fd);
+	while (utils.line)
 	{
-		if (!structure.error)
+		if (!utils.err)
 		{
-			structure.error = validate_map(engine, structure.line, structure.y);
-			tmp = ft_strjoin_free(tmp, structure.line);
+			utils.err = validate_map(engine, utils.line, utils.y);
+			tmp = ft_strjoin_free(tmp, utils.line);
 			if (!tmp)
 				return (1);
 		}
-		structure.y++;
-		free(structure.line);
-		structure.line = get_next_line(fd);
+		utils.y++;
+		free(utils.line);
+		utils.line = get_next_line(fd);
 	}
-	if ((engine->flags & PLAYER_SET) || !(engine->flags & PLAYER_FOUND) || structure.error)
+	if ((engine->flags & (1 << 7)) || !(engine->flags & (1 << 6)) || utils.err)
 		return (free(tmp), 1);
 	engine->map->map = ft_split(tmp, '\n');
 	if (!engine->map->map)
 		return (free(tmp), 1);
 	free(tmp);
-	if (!create_player(engine))
-		return (1);
-	return (0);
+	return (create_player(engine));
 }
 
 /*
  * Prepares strucutre that holds variables for parsing map.
  */
 
-static void	prepare_parser(t_parser *structure, int fd, char **tmp)
+static void	prepare_parser(t_parser_map *structure, int fd, char **tmp)
 {
 	structure->line = get_next_line(fd);
-	structure->error = 0;
+	structure->err = 0;
 	structure->y = 0;
 	*tmp = NULL;
 }
@@ -90,13 +100,11 @@ static int	validate_map(t_engine *engine, char *line, int y)
 			found = 1;
 		if (ft_strchr("NESW", line[i]))
 		{
-			//add new function to assign angle variable
-			if (engine->flags & PLAYER_FOUND)
-				return (engine->flags |= PLAYER_SET, 0);
-			//set_angel(engine, line[i]);
+			if (engine->flags & (1 << 6))
+				return (engine->flags |= (1 << 7), 0);
 			engine->player->x = i;
 			engine->player->y = y;
-			engine->flags |= PLAYER_FOUND;
+			engine->flags |= (1 << 6);
 		}
 		i++;
 	}

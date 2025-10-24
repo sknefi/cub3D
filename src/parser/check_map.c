@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmateja <tmateja@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:35:20 by tmateja           #+#    #+#             */
+/*   Updated: 2025/10/24 16:35:22 by tmateja          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 static void	get_map_width(t_engine *engine);
 static bool	validate_map(t_engine *engine);
 static bool	flags_and_stack(t_engine *engine, t_position **stack, \
-	uint8_t **map_flags);
+	uint8_t **map_flags, t_check_map_utils *utils);
 static int	check_current_position(t_engine *engine, t_position current, \
 	uint8_t *map_flags);
 
@@ -48,32 +60,26 @@ static void	get_map_width(t_engine *engine)
 
 static bool	validate_map(t_engine *engine)
 {
-	t_position	*stack;
-	t_position	current;
-	uint8_t		*map_flags;
-	int			i;
-	int	tmp = 1;
+	t_position			*stack;
+	t_position			current;
+	t_check_map_utils	utils;
+	uint8_t				*map_flags;
 
-	if (!flags_and_stack(engine, &stack, &map_flags))
+	if (!flags_and_stack(engine, &stack, &map_flags, &utils))
 		return (false);
-	i = 0;
-	stack[i++] = (t_position){engine->player->x, engine->player->y};
-	while (i > 0)
+	stack[utils.i++] = (t_position){engine->player->x, engine->player->y};
+	while (utils.i > 0)
 	{
-		current = stack[--i];
-		/*if (check_current_position(engine, current, map_flags) == 1)
+		current = stack[--utils.i];
+		utils.tmp = check_current_position(engine, current, map_flags);
+		if (utils.tmp == 1)
 			return (free(stack), free(map_flags), false);
-		else if (check_current_position(engine, current, map_flags) == -1)
-			continue ;*/
-		tmp = check_current_position(engine, current, map_flags);
-		if (tmp == 1)
-			return (free(stack), free(map_flags), false);
-		else if (tmp == -1)
-			continue;
-		stack[i++] = (t_position){current.x, current.y + 1};
-		stack[i++] = (t_position){current.x + 1, current.y};
-		stack[i++] = (t_position){current.x, current.y - 1};
-		stack[i++] = (t_position){current.x - 1, current.y};
+		else if (utils.tmp == -1)
+			continue ;
+		stack[utils.i++] = (t_position){current.x, current.y + 1};
+		stack[utils.i++] = (t_position){current.x + 1, current.y};
+		stack[utils.i++] = (t_position){current.x, current.y - 1};
+		stack[utils.i++] = (t_position){current.x - 1, current.y};
 	}
 	free(map_flags);
 	free(stack);
@@ -91,17 +97,19 @@ static bool	validate_map(t_engine *engine)
  */
 
 static bool	flags_and_stack(t_engine *engine, t_position **stack, \
-	uint8_t **map_flags)
+	uint8_t **map_flags, t_check_map_utils *utils)
 {
 	size_t	size;
 
+	utils->i = 0;
+	utils->tmp = 0;
 	size = ((engine->map->width * engine->map->height) + 7) / 8;
 	*map_flags = malloc(size);
 	if (!(*map_flags))
 		return (false);
 	ft_memset(*map_flags, 0, size);
 	*stack = malloc(sizeof(t_position) * \
-		(engine->map->height * engine->map->width) * 2); // Added * 2, issue with invalid write size //TODO
+		(engine->map->height * engine->map->width) * 2);
 	if (!(*stack))
 	{
 		free(*map_flags);

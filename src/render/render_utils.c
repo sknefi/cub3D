@@ -1,21 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fkarika <fkarika@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:30:28 by fkarika           #+#    #+#             */
+/*   Updated: 2025/10/24 16:30:29 by fkarika          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 uint32_t	rgba_from_rgb(t_rgb *color)
 {
-	return ((uint32_t)color->r << 24 | (uint32_t)color->g << 16 | \
-		(uint32_t)color->b << 8 | 0xFF);
-}
-
-uint32_t	get_ceiling_color(t_engine *engine)
-{
-	if (!engine || !engine->ceiling)
-		return (0xFFFFFFFF);
-	return (rgba_from_rgb(engine->ceiling));
-}
-
-uint32_t	get_floor_color(t_engine *engine)
-{
-	if (!engine || !engine->floor)
-		return (0x00000000);
-	return (rgba_from_rgb(engine->floor));
+	return ((uint32_t)color->r << 24 | (uint32_t)color->g << 16
+		| (uint32_t)color->b << 8 | 0xFF);
 }

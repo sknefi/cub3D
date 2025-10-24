@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fkarika <fkarika@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:30:55 by fkarika           #+#    #+#             */
+/*   Updated: 2025/10/24 16:30:56 by fkarika          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -26,8 +38,6 @@
 
 bool	init_engine(t_engine **engine);
 void	move_player(t_engine *engine, double move_x, double move_y);
-uint32_t	get_ceiling_color(t_engine *engine);
-uint32_t	get_floor_color(t_engine *engine);
 
 // Cleaner
 void	free_struct(t_engine *engine);

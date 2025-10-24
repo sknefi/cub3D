@@ -3,4 +3,4 @@
 	url = https://github.com/codam-coding-college/MLX42.git
 [submodule "tym_libft"]
 	path = tym_libft
-	url = git@github.com:Tym077/tym_libft.git
+	url = https://github.com/Tym077/tym_libft.git

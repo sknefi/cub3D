@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structs.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fkarika <fkarika@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 16:31:15 by fkarika           #+#    #+#             */
+/*   Updated: 2025/10/24 16:31:16 by fkarika          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../MLX42/include/MLX42/MLX42.h"
 
 typedef struct s_map	t_map;
@@ -8,9 +20,9 @@ typedef struct s_engine
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img[4];
+	char			*texture_path[4];
 	mlx_image_t		*frame;
 	mlx_texture_t	*texture[4];
-	char			*textures[4];
 	t_rgb			*floor;
 	t_rgb			*ceiling;
 	uint8_t			flags;
@@ -85,22 +97,32 @@ typedef struct s_position
 /*
  * Used to store variables for map parsing.
  */
-typedef struct	s_parser
+typedef struct s_process_map_utils
 {
 	char	*line;
-	bool	error;
+	bool	err;
 	int		y;
-}	t_parser;
+}	t_parser_map;
 
 /*
  * Used to store variables for configuration parsing.
  */
-typedef struct	s_parser_config
+typedef struct s_parser_config
 {
 	char	*ptr;
 	char	*tmp;
 	int		i;
 }	t_parser_config;
+
+/*
+ * Used to store variables for validation map
+ */
+
+typedef struct s_check_map_utils
+{
+	int	i;
+	int	tmp;
+}	t_check_map_utils;
 
 /**
  * This structure contains all information needed for one ray in
@@ -122,7 +144,8 @@ typedef struct	s_parser_config
  * 
  * @brief Everything we need to know about one ray/screen column
  *
- * @param camera_x      Where on screen (-1.0 = left edge, 0 = center, 1.0 = right edge)
+ * @param camera_x      Where on screen (-1.0 = left edge, 0 = center,
+ * 						1.0 = right edge)
  * @param dir_x         X component of ray's direction vector
  * @param dir_y         Y component of ray's direction vector
  * @param map_x         Current X position in map grid (changes during DDA)
@@ -133,7 +156,8 @@ typedef struct	s_parser_config
  * @param delta_dist_y  Distance between horizontal grid lines along ray
  * @param step_x        Direction to step in X (-1 for left, 1 for right)
  * @param step_y        Direction to step in Y (-1 for up, 1 for down)
- * @param side          Which wall face was hit (0: EW/vertical, 1: NS/horizontal)
+ * @param side          Which wall face was hit (0: EW/vertical,
+ * 						1: NS/horizontal)
  * @param distance      Perpendicular distance to wall (for wall height) 
  */
 typedef struct s_ray
@@ -152,3 +176,20 @@ typedef struct s_ray
 	int		side;
 	double	distance;
 }	t_ray;
+
+typedef struct s_coloumn_info
+{
+	int	y;
+	int	x;
+	int	draw_start;
+	int	draw_end;
+	int	line_height;
+}	t_coloumn_info;
+
+typedef struct s_tex_state
+{
+	mlx_texture_t	*texture;
+	int				tex_x;
+	double			tex_step;
+	double			tex_pos;
+}	t_tex_state;
