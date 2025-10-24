@@ -3,8 +3,7 @@
 
 # include "stdlib.h"
 
-/*
- * Norminette does not like it, so I leave it here for reference.
+//  * Norminette does not like it, so I leave it here for reference.
 # define TEXTURE_NO (1 << 0)
 # define TEXTURE_EA (1 << 1)
 # define TEXTURE_SO (1 << 2)
@@ -14,7 +13,6 @@
 # define PLAYER_FOUND (1 << 6)
 # define PLAYER_SET (1 << 7)
 # define ALL_SET (TEXTURE_NO | TEXTURE_EA | TEXTURE_SO | TEXTURE_WE | COLOR_FLOOR | COLOR_CEILING)
- */
 
 typedef struct s_engine	t_engine;
 
