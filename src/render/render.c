@@ -6,7 +6,7 @@
 /*   By: fkarika <fkarika@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 16:30:27 by fkarika           #+#    #+#             */
-/*   Updated: 2025/10/24 16:30:28 by fkarika          ###   ########.fr       */
+/*   Updated: 2025/10/24 16:59:01 by fkarika          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	start_game(t_engine *engine)
 {
 	if (!engine)
 		return (false);
-	engine->mlx = mlx_init(WIN_W, WIN_H, "cub3d", false);
+	engine->mlx = mlx_init(WIN_W, WIN_H, "cub3D", false);
 	if (!engine->mlx)
 		return (false);
 	engine->frame = mlx_new_image(engine->mlx, WIN_W, WIN_H);
