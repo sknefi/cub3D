@@ -7,7 +7,7 @@ static int	validate_map(t_engine *engine, char *line, int y);
 int	process_map(t_engine *engine, int fd)
 {
 	t_parser_map	utils;
-	char		*tmp;
+	char			*tmp;
 
 	prepare_parser(&utils, fd, &tmp);
 	skip_empty_line(&utils.line, fd);
@@ -30,9 +30,7 @@ int	process_map(t_engine *engine, int fd)
 	if (!engine->map->map)
 		return (free(tmp), 1);
 	free(tmp);
-	if (!create_player(engine))
-		return (1);
-	return (0);
+	return (create_player(engine));
 }
 
 /*
