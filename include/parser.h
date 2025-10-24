@@ -12,7 +12,9 @@
 # define COLOR_CEILING (1 << 5)
 # define PLAYER_FOUND (1 << 6)
 # define PLAYER_SET (1 << 7)
-# define ALL_SET (TEXTURE_NO | TEXTURE_EA | TEXTURE_SO | TEXTURE_WE | COLOR_FLOOR | COLOR_CEILING)
+# define ALL_SET (TEXTURE_NO | TEXTURE_EA | TEXTURE_SO \
+    | TEXTURE_WE | COLOR_FLOOR | COLOR_CEILING)
+ */
 
 typedef struct s_engine	t_engine;
 
@@ -24,7 +26,8 @@ int		parser(t_engine *engine, char *filename);
 
 /*
  * Checks every lines till it gets all textures and colors requried from map.
- * Checks engine->flags, if every config was parsed. It uses first 6 bits of flags.
+ * Checks engine->flags, if every config was parsed.
+ * It uses first 6 bits of flags.
  * On error returns 1, 0 on success.
  */
 int		process_config(t_engine *engine, int fd);

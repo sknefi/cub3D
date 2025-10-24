@@ -96,7 +96,7 @@ typedef struct	s_process_map_utils
 /*
  * Used to store variables for configuration parsing.
  */
-typedef struct	s_process_config_utils
+typedef struct s_parser_config
 {
 	char	*ptr;
 	char	*tmp;
