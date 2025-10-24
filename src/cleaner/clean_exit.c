@@ -1,23 +1,11 @@
 #include "../../include/cub3d.h"
 
+static void	free_texture_path(t_engine *engine);
+
 void	free_struct(t_engine *engine)
 {
-	if (!engine)
-		return ;
 	if (engine->mlx)
-	{
-		if (engine->frame)
-			mlx_delete_image(engine->mlx, engine->frame);
-		for (int i = 0; i < 4; i++)
-		{
-			if (engine->img[i])
-				mlx_delete_image(engine->mlx, engine->img[i]);
-			if (engine->texture[i])
-				mlx_delete_texture(engine->texture[i]);
-		}
-		mlx_terminate(engine->mlx);
-		engine->mlx = NULL;
-	}
+		free(engine->mlx);
 	if (engine->ceiling)
 		free(engine->ceiling);
 	if (engine->floor)
@@ -30,10 +18,20 @@ void	free_struct(t_engine *engine)
 	}
 	if (engine->player)
 		free(engine->player);
-	for (int i = 0; i < 4; i++)
+	free_texture_path(engine);
+	if (engine)
+		free(engine);
+}
+
+static void	free_texture_path(t_engine *engine)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
 	{
 		if (engine->texture_path[i])
 			free(engine->texture_path[i]);
+		i++;
 	}
-	free(engine);
 }

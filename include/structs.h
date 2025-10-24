@@ -11,7 +11,6 @@ typedef struct s_engine
 	char			*texture_path[4];
 	mlx_image_t		*frame;
 	mlx_texture_t	*texture[4];
-	char			*textures[4];
 	t_rgb			*floor;
 	t_rgb			*ceiling;
 	uint8_t			flags;
