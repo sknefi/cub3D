@@ -27,8 +27,8 @@ int	extract_texture(t_engine *engine, char *line, char *dir)
 	line[j] = '\0';
 	if (check_extension(line))
 		return (1);
-	engine->textures[direction] = ft_strdup(line);
-	if (!engine->textures[direction])
+	engine->texture_path[direction] = ft_strdup(line);
+	if (!engine->texture_path[direction])
 		return (1);
 	set_flag(engine, dir);
 	return (0);

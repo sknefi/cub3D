@@ -8,6 +8,7 @@ typedef struct s_engine
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img[4];
+	char			*texture_path[4];
 	mlx_image_t		*frame;
 	mlx_texture_t	*texture[4];
 	char			*textures[4];
@@ -85,22 +86,26 @@ typedef struct s_position
 /*
  * Used to store variables for map parsing.
  */
-typedef struct	s_parser
+typedef struct	s_process_map_utils
 {
 	char	*line;
 	bool	err;
 	int		y;
-}	t_parser;
+}	t_parser_map;
 
 /*
  * Used to store variables for configuration parsing.
  */
-typedef struct	s_parser_config
+typedef struct	s_process_config_utils
 {
 	char	*ptr;
 	char	*tmp;
 	int		i;
 }	t_parser_config;
+
+/*
+ * Used to store variables for validation map
+ */
 
 typedef struct s_check_map_utils
 {
