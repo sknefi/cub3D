@@ -167,3 +167,11 @@ typedef struct s_coloumn_info
 	int	draw_end;
 	int	line_height;
 }	t_coloumn_info;
+
+typedef struct s_tex_state
+{
+	mlx_texture_t	*texture;
+	int				tex_x;
+	double			tex_step;
+	double			tex_pos;
+}	t_tex_state;
