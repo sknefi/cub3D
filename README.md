@@ -132,8 +132,6 @@ C 225,30,0
 
 ## Gallery (drop in your screenshots)
 
-> Store captures inside `docs/images/` (create the folder if it does not exist) and update the paths below.
-
 <p align="center">
   <img src="docs/img1.png" alt="Main gameplay screenshot" width="480">
 </p>
